@@ -69,11 +69,14 @@
   </PropertyGroup>
   <PropertyGroup />
   <ItemGroup>
-    <Reference Include="Be.Windows.Forms.HexBox">
-      <HintPath>.\Be.Windows.Forms.HexBox.dll</HintPath>
+    <Reference Include="Be.Windows.Forms.HexBox, Version=1.6.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Be.Windows.Forms.HexBox.1.6.1\lib\net40\Be.Windows.Forms.HexBox.dll</HintPath>
     </Reference>
     <Reference Include="librpc">
       <HintPath>.\librpc.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>.\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
@@ -90,12 +93,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CheatList.cs" />
+    <Compile Include="CodeCheat.cs" />
     <Compile Include="HexEditor.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="HexEditor.Designer.cs">
       <DependentUpon>HexEditor.cs</DependentUpon>
     </Compile>
+    <Compile Include="LangHelper.cs" />
     <Compile Include="main.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -146,6 +151,10 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <None Include="app.config" />
+    <None Include="Lang\Lang-zh-CN.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -163,9 +172,17 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>
     </PreBuildEvent>
   </PropertyGroup>
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties Lang_4Lang-zh-CN_1json__JSONSchema="载荷" />
+    </VisualStudio>
+  </ProjectExtensions>
 </Project>

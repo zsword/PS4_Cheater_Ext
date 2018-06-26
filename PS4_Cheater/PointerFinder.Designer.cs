@@ -46,37 +46,41 @@
             // 
             // status_strip
             // 
+            this.status_strip.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.status_strip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.progress_bar,
             this.msg});
-            this.status_strip.Location = new System.Drawing.Point(0, 399);
+            this.status_strip.Location = new System.Drawing.Point(0, 500);
             this.status_strip.Name = "status_strip";
-            this.status_strip.Size = new System.Drawing.Size(851, 22);
+            this.status_strip.Padding = new System.Windows.Forms.Padding(1, 0, 19, 0);
+            this.status_strip.Size = new System.Drawing.Size(1135, 26);
             this.status_strip.TabIndex = 2;
             this.status_strip.Text = "statusStrip1";
             // 
             // progress_bar
             // 
             this.progress_bar.Name = "progress_bar";
-            this.progress_bar.Size = new System.Drawing.Size(600, 16);
+            this.progress_bar.Size = new System.Drawing.Size(800, 20);
             // 
             // msg
             // 
             this.msg.Name = "msg";
-            this.msg.Size = new System.Drawing.Size(0, 17);
+            this.msg.Size = new System.Drawing.Size(0, 21);
             // 
             // address_box
             // 
-            this.address_box.Location = new System.Drawing.Point(202, 10);
+            this.address_box.Location = new System.Drawing.Point(269, 12);
+            this.address_box.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.address_box.Name = "address_box";
-            this.address_box.Size = new System.Drawing.Size(133, 21);
+            this.address_box.Size = new System.Drawing.Size(176, 25);
             this.address_box.TabIndex = 3;
             // 
             // find_btn
             // 
-            this.find_btn.Location = new System.Drawing.Point(351, 8);
+            this.find_btn.Location = new System.Drawing.Point(468, 10);
+            this.find_btn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.find_btn.Name = "find_btn";
-            this.find_btn.Size = new System.Drawing.Size(96, 23);
+            this.find_btn.Size = new System.Drawing.Size(128, 29);
             this.find_btn.TabIndex = 4;
             this.find_btn.Text = "First Scan";
             this.find_btn.UseVisualStyleBackColor = true;
@@ -84,10 +88,11 @@
             // 
             // level_updown
             // 
-            this.level_updown.Location = new System.Drawing.Point(11, 11);
+            this.level_updown.Location = new System.Drawing.Point(15, 14);
+            this.level_updown.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.level_updown.Name = "level_updown";
             this.level_updown.ReadOnly = true;
-            this.level_updown.Size = new System.Drawing.Size(120, 21);
+            this.level_updown.Size = new System.Drawing.Size(160, 25);
             this.level_updown.TabIndex = 6;
             // 
             // pointer_finder_worker
@@ -107,20 +112,22 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pointer_list_view.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.pointer_list_view.Location = new System.Drawing.Point(0, 37);
+            this.pointer_list_view.Location = new System.Drawing.Point(0, 46);
+            this.pointer_list_view.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.pointer_list_view.Name = "pointer_list_view";
             this.pointer_list_view.ReadOnly = true;
             this.pointer_list_view.RowTemplate.Height = 23;
             this.pointer_list_view.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.pointer_list_view.Size = new System.Drawing.Size(851, 362);
+            this.pointer_list_view.Size = new System.Drawing.Size(1135, 452);
             this.pointer_list_view.TabIndex = 7;
             this.pointer_list_view.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.pointer_list_view_CellDoubleClick);
             // 
             // next_btn
             // 
-            this.next_btn.Location = new System.Drawing.Point(471, 8);
+            this.next_btn.Location = new System.Drawing.Point(628, 10);
+            this.next_btn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.next_btn.Name = "next_btn";
-            this.next_btn.Size = new System.Drawing.Size(96, 23);
+            this.next_btn.Size = new System.Drawing.Size(128, 29);
             this.next_btn.TabIndex = 8;
             this.next_btn.Text = "Next Scan";
             this.next_btn.UseVisualStyleBackColor = true;
@@ -137,9 +144,10 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(143, 19);
+            this.label1.Location = new System.Drawing.Point(191, 19);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(53, 12);
+            this.label1.Size = new System.Drawing.Size(71, 15);
             this.label1.TabIndex = 9;
             this.label1.Text = "Address:";
             // 
@@ -148,9 +156,10 @@
             this.fast_scan_box.AutoSize = true;
             this.fast_scan_box.Checked = true;
             this.fast_scan_box.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.fast_scan_box.Location = new System.Drawing.Point(706, 12);
+            this.fast_scan_box.Location = new System.Drawing.Point(941, 17);
+            this.fast_scan_box.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.fast_scan_box.Name = "fast_scan_box";
-            this.fast_scan_box.Size = new System.Drawing.Size(72, 16);
+            this.fast_scan_box.Size = new System.Drawing.Size(93, 19);
             this.fast_scan_box.TabIndex = 10;
             this.fast_scan_box.Text = "FastScan";
             this.fast_scan_box.UseVisualStyleBackColor = true;
@@ -158,9 +167,9 @@
             // 
             // PointerFinder
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(851, 421);
+            this.ClientSize = new System.Drawing.Size(1135, 526);
             this.Controls.Add(this.fast_scan_box);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.next_btn);
@@ -169,6 +178,7 @@
             this.Controls.Add(this.find_btn);
             this.Controls.Add(this.address_box);
             this.Controls.Add(this.status_strip);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "PointerFinder";
             this.Text = "Pointer Finder";
             this.Load += new System.EventHandler(this.PointerFinder_Load);

@@ -11,6 +11,7 @@ using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using librpc;
+using static System.Windows.Forms.Menu;
 
 namespace PS4_Cheater
 {
@@ -44,6 +45,14 @@ namespace PS4_Cheater
                 ulong end = section.Start + (ulong)(i + 1) * page_size;
                 page_list.Items.Add((i + 1).ToString() + String.Format(" {0:X}-{1:X}", start, end));
             }
+
+            this.Text = LangHelper.GetLang("HexEditor");
+            this.previous_btn.Text = LangHelper.GetLang("Previous");
+            this.next_btn.Text = LangHelper.GetLang("Next");
+            this.refresh_btn.Text = LangHelper.GetLang("Refresh");
+            this.commit_btn.Text = LangHelper.GetLang("Commit");
+            this.find.Text = LangHelper.GetLang("Find");
+            this.cheat_btn.Text = LangHelper.GetLang("Add Cheat");
         }
 
         private void update_ui(int page, long line)
@@ -57,8 +66,16 @@ namespace PS4_Cheater
                 mem_size = section.Length - page_size * page;
             }
 
-            byte[] dst = memoryHelper.ReadMemory(section.Start + (ulong)page * page_size, (int)mem_size);
-            hexBox.ByteProvider = new MemoryViewByteProvider(dst);
+            if (CheatList.IS_DEV && this.hexBox.ByteProvider != null)
+            {
+            }
+            else
+            {
+                byte[] dst = memoryHelper.ReadMemory(section.Start + (ulong)page * page_size, (int)mem_size);
+                MemoryViewByteProvider dataProvider = new MemoryViewByteProvider(dst);
+                //hexBox.ByteProvider = new MemoryViewByteProvider(dst);
+                hexBox.ByteProvider = dataProvider;
+            }
 
             if (line != 0)
             {
@@ -119,7 +136,6 @@ namespace PS4_Cheater
 
         private void commit_btn_Click(object sender, EventArgs e)
         {
-            
             MemoryViewByteProvider mvbp = (MemoryViewByteProvider)this.hexBox.ByteProvider;
             if (mvbp.HasChanges())
             {
@@ -149,6 +165,72 @@ namespace PS4_Cheater
             findOptions.Type = FindType.Hex;
             findOptions.Hex = MemoryHelper.string_to_hex_bytes(input_box.Text);
             hexBox.Find(findOptions);
+        }
+
+        private void menu_item_copy_Click(object sender, EventArgs e)
+        {
+            this.hexBox.CopyHex();
+        }
+
+        private void hexBox_Copied(object sender, EventArgs e)
+        {
+            this.hexBox.CopyHex();
+        }
+
+        private void hexBox_CopiedHex(object sender, EventArgs e)
+        {
+            Debug.Write(sender);
+        }
+
+        private void hexBox_ContextMenuStripChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void hexBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            Debug.Write(e);
+        }
+
+        private void hexBox_Parse(string strData)
+        {            
+            string[] strs = strData.Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries);
+            byte[] hexData = new byte[strs.Length];
+            long index = this.hexBox.SelectionStart;
+            try
+            {
+                for (int i = 0; i < strs.Length; i++)
+                {
+                    hexData[i] = Byte.Parse(strs[i], System.Globalization.NumberStyles.HexNumber);
+                }
+            }
+            catch (FormatException fe)
+            {
+                MessageBox.Show(this, String.Format(LangHelper.GetLang("Invalid Hex String: [{0}] - {1}"), strData, fe.Message));
+            }
+            for (int i = 0; i < hexData.Length; i++)
+            {
+                this.hexBox.ByteProvider.WriteByte(index++, hexData[i]);
+            }
+            this.hexBox.Refresh();
+        }
+
+        private void hexBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            switch(e.KeyData)
+            {
+                case Keys.V | Keys.Control:
+                    string strData = Clipboard.GetText();
+                    this.hexBox_Parse(strData);
+                    e.Handled = true;
+                    break;
+            }
+        }
+
+        private void cheat_btn_Click(object sender, EventArgs e)
+        {
+            ulong address = this.section.Start + (ulong)this.hexBox.SelectionStart;
+            ((main)this.Owner).AddNewCheat(address);
         }
     }
 }

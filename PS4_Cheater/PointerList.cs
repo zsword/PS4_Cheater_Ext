@@ -379,7 +379,7 @@ namespace PS4_Cheater
         {
             List<long> path_offset = new List<long>();
             List<Pointer> path_address = new List<Pointer>();
-            bool changed = true;
+           // bool changed = true;
             PointerFinder(path_offset, path_address, address, range, 0);
         }
 

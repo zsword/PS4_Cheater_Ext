@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
@@ -27,6 +28,15 @@ namespace PS4_Cheater
 
             this.MemoryHelper = new MemoryHelper(true, 0);
             this.ProcessManager = ProcessManager;
+
+            this.label1.Text = LangHelper.GetLang("Address");
+            this.label2.Text = LangHelper.GetLang("Type");
+            this.label3.Text = LangHelper.GetLang("Description");
+            this.label4.Text = LangHelper.GetLang("Value");
+            this.lock_box.Text = LangHelper.GetLang("Lock");
+            this.save_btn.Text = LangHelper.GetLang("Save");
+            this.cancel_btn.Text = LangHelper.GetLang("Close");
+            this.pointer_box.Text = LangHelper.GetLang("Pointer");
         }
 
         public ulong Address { get; set; }
@@ -74,6 +84,10 @@ namespace PS4_Cheater
 
         private void NewAddress_Load(object sender, EventArgs e)
         {
+            if (this.Address > 0)
+            {
+                this.address_box.Text = this.Address.ToString("X");
+            }
             type_box.Items.AddRange(CONSTANT.SEARCH_VALUE_TYPE);
             type_box.SelectedIndex = 2;
         }

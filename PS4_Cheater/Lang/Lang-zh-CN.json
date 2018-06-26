@@ -1,0 +1,86 @@
+﻿{
+  /*"byte": "字节",
+  "1 byte": "单字节",
+  "2 bytes": "双字节",
+  "4 bytes": "四字节",
+  "8 bytes": "八字节",
+  "float": "浮点数",
+  "double": "双精度小数",
+  "string": "字符串",
+  "hex": "16进制",
+  "pointer": "指针",*/
+
+  "Exact Value": "准确值",
+  "Fuzzy Value": "模糊值",
+  "Increased Value": "值增长",
+  "Increased Value By": "增长值",
+  "Decreased Value": "值降低",
+  "Decreased Value By": "降低值",
+  "Bigger Than": "大于",
+  "Smaller Than": "小于",
+  "Changed Value": "值变化",
+  "Unchanged Value": "值未变",
+  "Between Value": "值范围",
+  "Unknown Initial Value": "未知值",
+
+  "Filter":  "过滤",
+  "Stop": "停止",
+  "First Scan": "开始搜索",
+  "New Scan": "新的搜索",
+  "Next Scan": "再次搜索",
+  "Refresh": "刷新",
+  "Close":  "关闭",
+
+  " results": "条结果",
+  "Peeking memory...": "获取内存",
+  "Analysing memory...": "扫描内存",
+  "Processing memory...": "处理内存",
+  "Address is out of range!": "地址超出范围!",
+  "Invalid Address!!": "无效的地址!",
+  "Unknown version.": "未知版本.",
+  "Injecting kpayload.elf...": "注入kpayload.elf...",
+  "Payload injected successfully!": "载荷注入成功!",
+
+  "Select All": "全选",
+  "Alignment": "对齐",
+  "Value:": "数值",
+  "Hex": "16进制",
+  "Send Payload": "发送载荷",
+  "Refresh Processes": "刷新进程列表",
+
+  "New": "新建",
+  "Save": "保存",
+  "Load": "加载",
+  "Messages": "消息",
+
+  "Add to Cheat List": "添加到修改列表",
+  "Hex Editor": "内存编辑",
+  "Dump": "转存内存",
+
+  "Address": "内存地址",
+  "Value":  "数值",
+  "Type": "类型",
+  "Section": "区段",
+
+  "Delete": "删除",
+  "Lock": "锁定",
+  "Description": "说明",
+  "Pointer":  "指针",
+
+  "Unlock": "解锁",
+  "Active": "激活",
+  "Find Pointer": "查找指针",
+
+  "HexEditor": "内存编辑",
+  "Previous": "上一个",
+  "Next": "下一个",
+  "Commit": "提交",
+  "Add Cheat": "添加修改",
+
+  "Address:": "内存地址:",
+  "FastScan":  "快速搜索",
+
+  "Invalid Hex String: [{0}] - {1}": "无效的16进制字串: [{0}] - {1}",
+  "Verify if you're connected!":  "确认你已重新连接!"
+
+}

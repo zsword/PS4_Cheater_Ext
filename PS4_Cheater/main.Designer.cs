@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.Generic;
+using System.ComponentModel;
 using System.Windows.Forms;
 
 namespace PS4_Cheater
@@ -12,7 +13,6 @@ namespace PS4_Cheater
         private ColumnHeader result_list_view_hex;
         private Button save_cheat_list_btn;
         private Button new_cheat_list_btn;
-        private DataGridView cheat_list_view;
         private CheckedListBox section_list_box;
         private ContextMenuStrip section_list_menu;
         private ToolStripMenuItem section_view_menu;
@@ -45,6 +45,8 @@ namespace PS4_Cheater
         private OpenFileDialog open_file_dialog;
         private Panel parent;
         private IContainer components = null;
+        private List<object> sectionInfos = new List<object>();
+
         protected override void Dispose(bool disposing)
         {
             if (disposing && (this.components != null))
@@ -58,6 +60,8 @@ namespace PS4_Cheater
         {
             this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.parent = new System.Windows.Forms.Panel();
             this.result_list_view_value = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -67,15 +71,6 @@ namespace PS4_Cheater
             this.result_list_view_hex = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.save_cheat_list_btn = new System.Windows.Forms.Button();
             this.new_cheat_list_btn = new System.Windows.Forms.Button();
-            this.cheat_list_view = new System.Windows.Forms.DataGridView();
-            this.cheat_list_view_del = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.cheat_list_view_address = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cheat_list_view_type = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cheat_list_view_active = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.cheat_list_view_value = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cheat_list_view_section = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cheat_list_view_lock = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.cheat_list_view_description = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cheat_list_menu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.cheat_list_item_hex_view = new System.Windows.Forms.ToolStripMenuItem();
             this.cheat_list_item_separator_1 = new System.Windows.Forms.ToolStripSeparator();
@@ -110,17 +105,20 @@ namespace PS4_Cheater
             this.port_box = new System.Windows.Forms.TextBox();
             this.send_payload_btn = new System.Windows.Forms.Button();
             this.get_processes_btn = new System.Windows.Forms.Button();
+            this.langCombo = new System.Windows.Forms.ComboBox();
+            this.value_label = new System.Windows.Forms.Label();
+            this.value_1_box = new System.Windows.Forms.TextBox();
+            this.and_label = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.select_all = new System.Windows.Forms.CheckBox();
+            this.sectionfilter_button = new System.Windows.Forms.Button();
+            this.sectionfilter_box = new System.Windows.Forms.TextBox();
             this.hex_box = new System.Windows.Forms.CheckBox();
             this.alignment_box = new System.Windows.Forms.CheckBox();
-            this.value_1_box = new System.Windows.Forms.TextBox();
-            this.value_label = new System.Windows.Forms.Label();
-            this.and_label = new System.Windows.Forms.Label();
             this.msg = new System.Windows.Forms.Label();
-            this.select_all = new System.Windows.Forms.CheckBox();
             this.progressBar = new System.Windows.Forms.ProgressBar();
             this.compareTypeList = new System.Windows.Forms.ComboBox();
             this.valueTypeList = new System.Windows.Forms.ComboBox();
-            this.label4 = new System.Windows.Forms.Label();
             this.next_scan_btn = new System.Windows.Forms.Button();
             this.new_scan_btn = new System.Windows.Forms.Button();
             this.refresh_btn = new System.Windows.Forms.Button();
@@ -128,7 +126,16 @@ namespace PS4_Cheater
             this.next_scan_worker = new System.ComponentModel.BackgroundWorker();
             this.open_file_dialog = new System.Windows.Forms.OpenFileDialog();
             this.update_result_list_worker = new System.ComponentModel.BackgroundWorker();
-            ((System.ComponentModel.ISupportInitialize)(this.cheat_list_view)).BeginInit();
+            this.toolbar = new System.Windows.Forms.FlowLayoutPanel();
+            this.cheat_list_view = new System.Windows.Forms.DataGridView();
+            this.cheat_list_view_description = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cheat_list_view_lock = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.cheat_list_view_section = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cheat_list_view_value = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cheat_list_view_active = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.cheat_list_view_type = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cheat_list_view_address = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cheat_list_view_del = new System.Windows.Forms.DataGridViewButtonColumn();
             this.cheat_list_menu.SuspendLayout();
             this.section_list_menu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -144,14 +151,16 @@ namespace PS4_Cheater
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.cheat_list_view)).BeginInit();
             this.SuspendLayout();
             // 
             // parent
             // 
             this.parent.Dock = System.Windows.Forms.DockStyle.Fill;
             this.parent.Location = new System.Drawing.Point(0, 0);
+            this.parent.Margin = new System.Windows.Forms.Padding(4);
             this.parent.Name = "parent";
-            this.parent.Size = new System.Drawing.Size(1011, 619);
+            this.parent.Size = new System.Drawing.Size(1428, 749);
             this.parent.TabIndex = 11;
             // 
             // result_list_view_value
@@ -173,9 +182,10 @@ namespace PS4_Cheater
             this.refresh_cheat_list_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.refresh_cheat_list_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.refresh_cheat_list_btn.ForeColor = System.Drawing.Color.White;
-            this.refresh_cheat_list_btn.Location = new System.Drawing.Point(179, 2);
+            this.refresh_cheat_list_btn.Location = new System.Drawing.Point(207, 7);
+            this.refresh_cheat_list_btn.Margin = new System.Windows.Forms.Padding(4);
             this.refresh_cheat_list_btn.Name = "refresh_cheat_list_btn";
-            this.refresh_cheat_list_btn.Size = new System.Drawing.Size(165, 25);
+            this.refresh_cheat_list_btn.Size = new System.Drawing.Size(180, 31);
             this.refresh_cheat_list_btn.TabIndex = 31;
             this.refresh_cheat_list_btn.TabStop = false;
             this.refresh_cheat_list_btn.Text = "Refresh";
@@ -192,9 +202,10 @@ namespace PS4_Cheater
             this.load_cheat_list_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.load_cheat_list_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.load_cheat_list_btn.ForeColor = System.Drawing.Color.White;
-            this.load_cheat_list_btn.Location = new System.Drawing.Point(534, 2);
+            this.load_cheat_list_btn.Location = new System.Drawing.Point(661, 7);
+            this.load_cheat_list_btn.Margin = new System.Windows.Forms.Padding(4);
             this.load_cheat_list_btn.Name = "load_cheat_list_btn";
-            this.load_cheat_list_btn.Size = new System.Drawing.Size(165, 25);
+            this.load_cheat_list_btn.Size = new System.Drawing.Size(180, 31);
             this.load_cheat_list_btn.TabIndex = 33;
             this.load_cheat_list_btn.TabStop = false;
             this.load_cheat_list_btn.Text = "Load";
@@ -216,9 +227,10 @@ namespace PS4_Cheater
             this.save_cheat_list_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.save_cheat_list_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.save_cheat_list_btn.ForeColor = System.Drawing.Color.White;
-            this.save_cheat_list_btn.Location = new System.Drawing.Point(350, 2);
+            this.save_cheat_list_btn.Location = new System.Drawing.Point(434, 7);
+            this.save_cheat_list_btn.Margin = new System.Windows.Forms.Padding(4);
             this.save_cheat_list_btn.Name = "save_cheat_list_btn";
-            this.save_cheat_list_btn.Size = new System.Drawing.Size(165, 25);
+            this.save_cheat_list_btn.Size = new System.Drawing.Size(180, 31);
             this.save_cheat_list_btn.TabIndex = 32;
             this.save_cheat_list_btn.TabStop = false;
             this.save_cheat_list_btn.Text = "Save";
@@ -235,9 +247,10 @@ namespace PS4_Cheater
             this.new_cheat_list_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.new_cheat_list_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.new_cheat_list_btn.ForeColor = System.Drawing.Color.White;
-            this.new_cheat_list_btn.Location = new System.Drawing.Point(0, 2);
+            this.new_cheat_list_btn.Location = new System.Drawing.Point(13, 7);
+            this.new_cheat_list_btn.Margin = new System.Windows.Forms.Padding(4);
             this.new_cheat_list_btn.Name = "new_cheat_list_btn";
-            this.new_cheat_list_btn.Size = new System.Drawing.Size(158, 25);
+            this.new_cheat_list_btn.Size = new System.Drawing.Size(180, 31);
             this.new_cheat_list_btn.TabIndex = 30;
             this.new_cheat_list_btn.TabStop = false;
             this.new_cheat_list_btn.Text = "New";
@@ -245,98 +258,9 @@ namespace PS4_Cheater
             this.new_cheat_list_btn.UseVisualStyleBackColor = false;
             this.new_cheat_list_btn.Click += new System.EventHandler(this.add_address_btn_Click);
             // 
-            // cheat_list_view
-            // 
-            this.cheat_list_view.AllowUserToAddRows = false;
-            this.cheat_list_view.AllowUserToResizeRows = false;
-            this.cheat_list_view.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.cheat_list_view.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.cheat_list_view.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.cheat_list_view_del,
-            this.cheat_list_view_address,
-            this.cheat_list_view_type,
-            this.cheat_list_view_active,
-            this.cheat_list_view_value,
-            this.cheat_list_view_section,
-            this.cheat_list_view_lock,
-            this.cheat_list_view_description});
-            this.cheat_list_view.ContextMenuStrip = this.cheat_list_menu;
-            this.cheat_list_view.Location = new System.Drawing.Point(0, 36);
-            this.cheat_list_view.Name = "cheat_list_view";
-            this.cheat_list_view.RowHeadersVisible = false;
-            this.cheat_list_view.RowTemplate.Height = 23;
-            this.cheat_list_view.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.cheat_list_view.Size = new System.Drawing.Size(703, 255);
-            this.cheat_list_view.TabIndex = 50;
-            this.cheat_list_view.TabStop = false;
-            this.cheat_list_view.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.cheat_list_view_CellClick);
-            this.cheat_list_view.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.cheat_list_view_CellEndEdit);
-            this.cheat_list_view.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.cheat_list_view_RowsRemoved);
-            // 
-            // cheat_list_view_del
-            // 
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.NullValue = "Delete";
-            this.cheat_list_view_del.DefaultCellStyle = dataGridViewCellStyle1;
-            this.cheat_list_view_del.HeaderText = "Delete";
-            this.cheat_list_view_del.Name = "cheat_list_view_del";
-            this.cheat_list_view_del.Width = 50;
-            // 
-            // cheat_list_view_address
-            // 
-            this.cheat_list_view_address.HeaderText = "Address";
-            this.cheat_list_view_address.Name = "cheat_list_view_address";
-            this.cheat_list_view_address.ReadOnly = true;
-            this.cheat_list_view_address.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // cheat_list_view_type
-            // 
-            this.cheat_list_view_type.HeaderText = "Type";
-            this.cheat_list_view_type.Name = "cheat_list_view_type";
-            this.cheat_list_view_type.ReadOnly = true;
-            this.cheat_list_view_type.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // cheat_list_view_active
-            // 
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.NullValue = "X";
-            this.cheat_list_view_active.DefaultCellStyle = dataGridViewCellStyle2;
-            this.cheat_list_view_active.HeaderText = "X";
-            this.cheat_list_view_active.Name = "cheat_list_view_active";
-            this.cheat_list_view_active.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.cheat_list_view_active.Text = "X";
-            this.cheat_list_view_active.Width = 25;
-            // 
-            // cheat_list_view_value
-            // 
-            this.cheat_list_view_value.HeaderText = "Value";
-            this.cheat_list_view_value.Name = "cheat_list_view_value";
-            this.cheat_list_view_value.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // cheat_list_view_section
-            // 
-            this.cheat_list_view_section.HeaderText = "Section";
-            this.cheat_list_view_section.Name = "cheat_list_view_section";
-            this.cheat_list_view_section.ReadOnly = true;
-            this.cheat_list_view_section.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // cheat_list_view_lock
-            // 
-            this.cheat_list_view_lock.HeaderText = "Lock";
-            this.cheat_list_view_lock.Name = "cheat_list_view_lock";
-            this.cheat_list_view_lock.Width = 35;
-            // 
-            // cheat_list_view_description
-            // 
-            this.cheat_list_view_description.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.cheat_list_view_description.HeaderText = "Description";
-            this.cheat_list_view_description.Name = "cheat_list_view_description";
-            this.cheat_list_view_description.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
             // cheat_list_menu
             // 
+            this.cheat_list_menu.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.cheat_list_menu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.cheat_list_item_hex_view,
             this.cheat_list_item_separator_1,
@@ -348,62 +272,62 @@ namespace PS4_Cheater
             this.cheat_list_item_separator_2,
             this.cheat_list_item_delete});
             this.cheat_list_menu.Name = "cheat_list_menu";
-            this.cheat_list_menu.Size = new System.Drawing.Size(139, 154);
+            this.cheat_list_menu.Size = new System.Drawing.Size(167, 166);
             // 
             // cheat_list_item_hex_view
             // 
             this.cheat_list_item_hex_view.Name = "cheat_list_item_hex_view";
-            this.cheat_list_item_hex_view.Size = new System.Drawing.Size(138, 22);
+            this.cheat_list_item_hex_view.Size = new System.Drawing.Size(166, 24);
             this.cheat_list_item_hex_view.Text = "Hex Editor";
             this.cheat_list_item_hex_view.Click += new System.EventHandler(this.cheat_list_item_hex_view_Click);
             // 
             // cheat_list_item_separator_1
             // 
             this.cheat_list_item_separator_1.Name = "cheat_list_item_separator_1";
-            this.cheat_list_item_separator_1.Size = new System.Drawing.Size(135, 6);
+            this.cheat_list_item_separator_1.Size = new System.Drawing.Size(163, 6);
             // 
             // cheat_list_item_lock
             // 
             this.cheat_list_item_lock.Name = "cheat_list_item_lock";
-            this.cheat_list_item_lock.Size = new System.Drawing.Size(138, 22);
+            this.cheat_list_item_lock.Size = new System.Drawing.Size(166, 24);
             this.cheat_list_item_lock.Text = "Lock";
             this.cheat_list_item_lock.Click += new System.EventHandler(this.cheat_list_item_lock_Click);
             // 
             // cheat_list_item_unlock
             // 
             this.cheat_list_item_unlock.Name = "cheat_list_item_unlock";
-            this.cheat_list_item_unlock.Size = new System.Drawing.Size(138, 22);
+            this.cheat_list_item_unlock.Size = new System.Drawing.Size(166, 24);
             this.cheat_list_item_unlock.Text = "Unlock";
             this.cheat_list_item_unlock.Click += new System.EventHandler(this.cheat_list_time_unlock_Click);
             // 
             // cheat_list_item_active
             // 
             this.cheat_list_item_active.Name = "cheat_list_item_active";
-            this.cheat_list_item_active.Size = new System.Drawing.Size(138, 22);
+            this.cheat_list_item_active.Size = new System.Drawing.Size(166, 24);
             this.cheat_list_item_active.Text = "Active";
             this.cheat_list_item_active.Click += new System.EventHandler(this.cheat_list_item_active_Click);
             // 
             // cheat_list_item_separator_0
             // 
             this.cheat_list_item_separator_0.Name = "cheat_list_item_separator_0";
-            this.cheat_list_item_separator_0.Size = new System.Drawing.Size(135, 6);
+            this.cheat_list_item_separator_0.Size = new System.Drawing.Size(163, 6);
             // 
             // cheat_list_item_find_pointer
             // 
             this.cheat_list_item_find_pointer.Name = "cheat_list_item_find_pointer";
-            this.cheat_list_item_find_pointer.Size = new System.Drawing.Size(138, 22);
+            this.cheat_list_item_find_pointer.Size = new System.Drawing.Size(166, 24);
             this.cheat_list_item_find_pointer.Text = "Find Pointer";
             this.cheat_list_item_find_pointer.Click += new System.EventHandler(this.cheat_list_item_find_pointer_Click);
             // 
             // cheat_list_item_separator_2
             // 
             this.cheat_list_item_separator_2.Name = "cheat_list_item_separator_2";
-            this.cheat_list_item_separator_2.Size = new System.Drawing.Size(135, 6);
+            this.cheat_list_item_separator_2.Size = new System.Drawing.Size(163, 6);
             // 
             // cheat_list_item_delete
             // 
             this.cheat_list_item_delete.Name = "cheat_list_item_delete";
-            this.cheat_list_item_delete.Size = new System.Drawing.Size(138, 22);
+            this.cheat_list_item_delete.Size = new System.Drawing.Size(166, 24);
             this.cheat_list_item_delete.Text = "Delete";
             this.cheat_list_item_delete.Click += new System.EventHandler(this.cheat_list_item_delete_Click);
             // 
@@ -416,32 +340,34 @@ namespace PS4_Cheater
             this.section_list_box.ContextMenuStrip = this.section_list_menu;
             this.section_list_box.FormattingEnabled = true;
             this.section_list_box.HorizontalScrollbar = true;
-            this.section_list_box.Location = new System.Drawing.Point(10, 3);
+            this.section_list_box.Location = new System.Drawing.Point(5, 40);
+            this.section_list_box.Margin = new System.Windows.Forms.Padding(4);
             this.section_list_box.Name = "section_list_box";
-            this.section_list_box.Size = new System.Drawing.Size(284, 196);
+            this.section_list_box.Size = new System.Drawing.Size(375, 24);
             this.section_list_box.TabIndex = 7;
             this.section_list_box.TabStop = false;
             this.section_list_box.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.section_list_box_ItemCheck);
             // 
             // section_list_menu
             // 
+            this.section_list_menu.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.section_list_menu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.section_view_menu,
             this.section_dump_menu});
             this.section_list_menu.Name = "section_list_boxMenu";
-            this.section_list_menu.Size = new System.Drawing.Size(129, 48);
+            this.section_list_menu.Size = new System.Drawing.Size(156, 52);
             // 
             // section_view_menu
             // 
             this.section_view_menu.Name = "section_view_menu";
-            this.section_view_menu.Size = new System.Drawing.Size(128, 22);
+            this.section_view_menu.Size = new System.Drawing.Size(155, 24);
             this.section_view_menu.Text = "Hex Editor";
             this.section_view_menu.Click += new System.EventHandler(this.sectionView_Click);
             // 
             // section_dump_menu
             // 
             this.section_dump_menu.Name = "section_dump_menu";
-            this.section_dump_menu.Size = new System.Drawing.Size(128, 22);
+            this.section_dump_menu.Size = new System.Drawing.Size(155, 24);
             this.section_dump_menu.Text = "Dump";
             this.section_dump_menu.Click += new System.EventHandler(this.sectionDump_Click);
             // 
@@ -451,10 +377,11 @@ namespace PS4_Cheater
             this.value_box.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(38)))));
             this.value_box.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.value_box.ForeColor = System.Drawing.Color.White;
-            this.value_box.Location = new System.Drawing.Point(51, 269);
+            this.value_box.Location = new System.Drawing.Point(80, 158);
+            this.value_box.Margin = new System.Windows.Forms.Padding(4);
             this.value_box.MaxLength = 500;
             this.value_box.Name = "value_box";
-            this.value_box.Size = new System.Drawing.Size(100, 21);
+            this.value_box.Size = new System.Drawing.Size(100, 25);
             this.value_box.TabIndex = 10;
             this.value_box.Text = "0";
             // 
@@ -468,6 +395,7 @@ namespace PS4_Cheater
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer1.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer1.Margin = new System.Windows.Forms.Padding(4);
             this.splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1
@@ -477,14 +405,16 @@ namespace PS4_Cheater
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.splitContainer2);
-            this.splitContainer1.Size = new System.Drawing.Size(1011, 619);
-            this.splitContainer1.SplitterDistance = 703;
+            this.splitContainer1.Size = new System.Drawing.Size(1428, 749);
+            this.splitContainer1.SplitterDistance = 900;
+            this.splitContainer1.SplitterWidth = 5;
             this.splitContainer1.TabIndex = 47;
             // 
             // splitContainer4
             // 
             this.splitContainer4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer4.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer4.Margin = new System.Windows.Forms.Padding(4);
             this.splitContainer4.Name = "splitContainer4";
             this.splitContainer4.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -494,13 +424,15 @@ namespace PS4_Cheater
             // 
             // splitContainer4.Panel2
             // 
+            this.splitContainer4.Panel2.Controls.Add(this.cheat_list_view);
             this.splitContainer4.Panel2.Controls.Add(this.refresh_cheat_list_btn);
             this.splitContainer4.Panel2.Controls.Add(this.load_cheat_list_btn);
             this.splitContainer4.Panel2.Controls.Add(this.save_cheat_list_btn);
             this.splitContainer4.Panel2.Controls.Add(this.new_cheat_list_btn);
-            this.splitContainer4.Panel2.Controls.Add(this.cheat_list_view);
-            this.splitContainer4.Size = new System.Drawing.Size(703, 619);
-            this.splitContainer4.SplitterDistance = 323;
+            this.splitContainer4.Panel2.Controls.Add(this.toolbar);
+            this.splitContainer4.Size = new System.Drawing.Size(900, 749);
+            this.splitContainer4.SplitterDistance = 332;
+            this.splitContainer4.SplitterWidth = 5;
             this.splitContainer4.TabIndex = 0;
             this.splitContainer4.TabStop = false;
             // 
@@ -518,8 +450,9 @@ namespace PS4_Cheater
             this.result_list_view.GridLines = true;
             this.result_list_view.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.result_list_view.Location = new System.Drawing.Point(0, 0);
+            this.result_list_view.Margin = new System.Windows.Forms.Padding(4);
             this.result_list_view.Name = "result_list_view";
-            this.result_list_view.Size = new System.Drawing.Size(703, 323);
+            this.result_list_view.Size = new System.Drawing.Size(900, 332);
             this.result_list_view.TabIndex = 16;
             this.result_list_view.TabStop = false;
             this.result_list_view.UseCompatibleStateImageBehavior = false;
@@ -538,37 +471,38 @@ namespace PS4_Cheater
             // 
             // result_list_menu
             // 
+            this.result_list_menu.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.result_list_menu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.result_list_view_add_to_cheat_list,
             this.result_list_view_separator,
             this.result_list_view_view_item,
             this.result_list_view_dump_item});
             this.result_list_menu.Name = "result_list_menu";
-            this.result_list_menu.Size = new System.Drawing.Size(166, 76);
+            this.result_list_menu.Size = new System.Drawing.Size(205, 82);
             // 
             // result_list_view_add_to_cheat_list
             // 
             this.result_list_view_add_to_cheat_list.Name = "result_list_view_add_to_cheat_list";
-            this.result_list_view_add_to_cheat_list.Size = new System.Drawing.Size(165, 22);
+            this.result_list_view_add_to_cheat_list.Size = new System.Drawing.Size(204, 24);
             this.result_list_view_add_to_cheat_list.Text = "Add to Cheat List";
             this.result_list_view_add_to_cheat_list.Click += new System.EventHandler(this.result_list_view_add_to_cheat_list_Click);
             // 
             // result_list_view_separator
             // 
             this.result_list_view_separator.Name = "result_list_view_separator";
-            this.result_list_view_separator.Size = new System.Drawing.Size(162, 6);
+            this.result_list_view_separator.Size = new System.Drawing.Size(201, 6);
             // 
             // result_list_view_view_item
             // 
             this.result_list_view_view_item.Name = "result_list_view_view_item";
-            this.result_list_view_view_item.Size = new System.Drawing.Size(165, 22);
+            this.result_list_view_view_item.Size = new System.Drawing.Size(204, 24);
             this.result_list_view_view_item.Text = "Hex Editor";
             this.result_list_view_view_item.Click += new System.EventHandler(this.result_list_view_hex_item_Click);
             // 
             // result_list_view_dump_item
             // 
             this.result_list_view_dump_item.Name = "result_list_view_dump_item";
-            this.result_list_view_dump_item.Size = new System.Drawing.Size(165, 22);
+            this.result_list_view_dump_item.Size = new System.Drawing.Size(204, 24);
             this.result_list_view_dump_item.Text = "Dump";
             this.result_list_view_dump_item.Click += new System.EventHandler(this.dump_item_Click);
             // 
@@ -577,6 +511,7 @@ namespace PS4_Cheater
             this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer2.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
             this.splitContainer2.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer2.Margin = new System.Windows.Forms.Padding(4);
             this.splitContainer2.Name = "splitContainer2";
             this.splitContainer2.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -588,27 +523,33 @@ namespace PS4_Cheater
             this.splitContainer2.Panel1.Controls.Add(this.port_box);
             this.splitContainer2.Panel1.Controls.Add(this.send_payload_btn);
             this.splitContainer2.Panel1.Controls.Add(this.get_processes_btn);
+            this.splitContainer2.Panel1.Padding = new System.Windows.Forms.Padding(5);
             // 
             // splitContainer2.Panel2
             // 
+            this.splitContainer2.Panel2.Controls.Add(this.langCombo);
+            this.splitContainer2.Panel2.Controls.Add(this.value_label);
+            this.splitContainer2.Panel2.Controls.Add(this.value_1_box);
+            this.splitContainer2.Panel2.Controls.Add(this.and_label);
+            this.splitContainer2.Panel2.Controls.Add(this.label4);
+            this.splitContainer2.Panel2.Controls.Add(this.select_all);
+            this.splitContainer2.Panel2.Controls.Add(this.sectionfilter_button);
+            this.splitContainer2.Panel2.Controls.Add(this.sectionfilter_box);
             this.splitContainer2.Panel2.Controls.Add(this.value_box);
             this.splitContainer2.Panel2.Controls.Add(this.hex_box);
             this.splitContainer2.Panel2.Controls.Add(this.alignment_box);
-            this.splitContainer2.Panel2.Controls.Add(this.value_1_box);
-            this.splitContainer2.Panel2.Controls.Add(this.value_label);
-            this.splitContainer2.Panel2.Controls.Add(this.and_label);
             this.splitContainer2.Panel2.Controls.Add(this.section_list_box);
             this.splitContainer2.Panel2.Controls.Add(this.msg);
-            this.splitContainer2.Panel2.Controls.Add(this.select_all);
             this.splitContainer2.Panel2.Controls.Add(this.progressBar);
             this.splitContainer2.Panel2.Controls.Add(this.compareTypeList);
             this.splitContainer2.Panel2.Controls.Add(this.valueTypeList);
-            this.splitContainer2.Panel2.Controls.Add(this.label4);
             this.splitContainer2.Panel2.Controls.Add(this.next_scan_btn);
             this.splitContainer2.Panel2.Controls.Add(this.new_scan_btn);
             this.splitContainer2.Panel2.Controls.Add(this.refresh_btn);
-            this.splitContainer2.Size = new System.Drawing.Size(304, 619);
-            this.splitContainer2.SplitterDistance = 113;
+            this.splitContainer2.Panel2.Padding = new System.Windows.Forms.Padding(5);
+            this.splitContainer2.Size = new System.Drawing.Size(523, 749);
+            this.splitContainer2.SplitterDistance = 135;
+            this.splitContainer2.SplitterWidth = 5;
             this.splitContainer2.TabIndex = 47;
             this.splitContainer2.TabStop = false;
             // 
@@ -621,10 +562,12 @@ namespace PS4_Cheater
             this.version_list.FormattingEnabled = true;
             this.version_list.Items.AddRange(new object[] {
             "5.05",
-            "4.55","4.05"});
-            this.version_list.Location = new System.Drawing.Point(10, 4);
+            "4.55",
+            "4.05"});
+            this.version_list.Location = new System.Drawing.Point(5, 5);
+            this.version_list.Margin = new System.Windows.Forms.Padding(4);
             this.version_list.Name = "version_list";
-            this.version_list.Size = new System.Drawing.Size(80, 20);
+            this.version_list.Size = new System.Drawing.Size(80, 23);
             this.version_list.TabIndex = 0;
             this.version_list.SelectedIndexChanged += new System.EventHandler(this.version_list_SelectedIndexChanged);
             // 
@@ -637,9 +580,10 @@ namespace PS4_Cheater
             this.processes_comboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.processes_comboBox.ForeColor = System.Drawing.Color.White;
             this.processes_comboBox.FormattingEnabled = true;
-            this.processes_comboBox.Location = new System.Drawing.Point(10, 57);
+            this.processes_comboBox.Location = new System.Drawing.Point(5, 76);
+            this.processes_comboBox.Margin = new System.Windows.Forms.Padding(4);
             this.processes_comboBox.Name = "processes_comboBox";
-            this.processes_comboBox.Size = new System.Drawing.Size(275, 20);
+            this.processes_comboBox.Size = new System.Drawing.Size(375, 23);
             this.processes_comboBox.TabIndex = 6;
             this.processes_comboBox.TabStop = false;
             this.processes_comboBox.SelectedIndexChanged += new System.EventHandler(this.processes_comboBox_SelectedIndexChanged);
@@ -651,10 +595,11 @@ namespace PS4_Cheater
             this.ip_box.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(38)))));
             this.ip_box.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.ip_box.ForeColor = System.Drawing.Color.White;
-            this.ip_box.Location = new System.Drawing.Point(94, 3);
+            this.ip_box.Location = new System.Drawing.Point(95, 9);
+            this.ip_box.Margin = new System.Windows.Forms.Padding(4);
             this.ip_box.MaxLength = 15;
             this.ip_box.Name = "ip_box";
-            this.ip_box.Size = new System.Drawing.Size(142, 21);
+            this.ip_box.Size = new System.Drawing.Size(220, 25);
             this.ip_box.TabIndex = 1;
             this.ip_box.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -664,10 +609,11 @@ namespace PS4_Cheater
             this.port_box.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(38)))));
             this.port_box.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.port_box.ForeColor = System.Drawing.Color.White;
-            this.port_box.Location = new System.Drawing.Point(242, 3);
+            this.port_box.Location = new System.Drawing.Point(320, 9);
+            this.port_box.Margin = new System.Windows.Forms.Padding(4);
             this.port_box.MaxLength = 4;
             this.port_box.Name = "port_box";
-            this.port_box.Size = new System.Drawing.Size(43, 21);
+            this.port_box.Size = new System.Drawing.Size(57, 25);
             this.port_box.TabIndex = 2;
             this.port_box.TabStop = false;
             this.port_box.Text = "9020";
@@ -684,9 +630,10 @@ namespace PS4_Cheater
             this.send_payload_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.send_payload_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.send_payload_btn.ForeColor = System.Drawing.Color.White;
-            this.send_payload_btn.Location = new System.Drawing.Point(10, 30);
+            this.send_payload_btn.Location = new System.Drawing.Point(5, 43);
+            this.send_payload_btn.Margin = new System.Windows.Forms.Padding(4);
             this.send_payload_btn.Name = "send_payload_btn";
-            this.send_payload_btn.Size = new System.Drawing.Size(275, 24);
+            this.send_payload_btn.Size = new System.Drawing.Size(375, 30);
             this.send_payload_btn.TabIndex = 3;
             this.send_payload_btn.TabStop = false;
             this.send_payload_btn.Text = "Send Payload";
@@ -706,9 +653,10 @@ namespace PS4_Cheater
             this.get_processes_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.get_processes_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.get_processes_btn.ForeColor = System.Drawing.Color.White;
-            this.get_processes_btn.Location = new System.Drawing.Point(10, 84);
+            this.get_processes_btn.Location = new System.Drawing.Point(5, 110);
+            this.get_processes_btn.Margin = new System.Windows.Forms.Padding(4);
             this.get_processes_btn.Name = "get_processes_btn";
-            this.get_processes_btn.Size = new System.Drawing.Size(275, 24);
+            this.get_processes_btn.Size = new System.Drawing.Size(375, 30);
             this.get_processes_btn.TabIndex = 5;
             this.get_processes_btn.TabStop = false;
             this.get_processes_btn.Text = "Refresh Processes";
@@ -716,13 +664,121 @@ namespace PS4_Cheater
             this.get_processes_btn.UseVisualStyleBackColor = false;
             this.get_processes_btn.Click += new System.EventHandler(this.get_processes_btn_Click);
             // 
+            // langCombo
+            // 
+            this.langCombo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.langCombo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.langCombo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.langCombo.FormattingEnabled = true;
+            this.langCombo.Location = new System.Drawing.Point(5, 435);
+            this.langCombo.Name = "langCombo";
+            this.langCombo.Size = new System.Drawing.Size(100, 23);
+            this.langCombo.TabIndex = 35;
+            this.langCombo.SelectedIndexChanged += new System.EventHandler(this.langCombo_SelectedChanged);
+            // 
+            // value_label
+            // 
+            this.value_label.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.value_label.AutoSize = true;
+            this.value_label.ForeColor = System.Drawing.Color.White;
+            this.value_label.Location = new System.Drawing.Point(270, 135);
+            this.value_label.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.value_label.Name = "value_label";
+            this.value_label.Size = new System.Drawing.Size(55, 15);
+            this.value_label.TabIndex = 31;
+            this.value_label.Text = "Value:";
+            // 
+            // value_1_box
+            // 
+            this.value_1_box.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.value_1_box.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(38)))));
+            this.value_1_box.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.value_1_box.ForeColor = System.Drawing.Color.White;
+            this.value_1_box.Location = new System.Drawing.Point(270, 158);
+            this.value_1_box.Margin = new System.Windows.Forms.Padding(4);
+            this.value_1_box.MaxLength = 31;
+            this.value_1_box.Name = "value_1_box";
+            this.value_1_box.Size = new System.Drawing.Size(100, 25);
+            this.value_1_box.TabIndex = 30;
+            this.value_1_box.Text = "0";
+            // 
+            // and_label
+            // 
+            this.and_label.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.and_label.AutoSize = true;
+            this.and_label.Location = new System.Drawing.Point(230, 163);
+            this.and_label.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.and_label.Name = "and_label";
+            this.and_label.Size = new System.Drawing.Size(31, 15);
+            this.and_label.TabIndex = 29;
+            this.and_label.Text = "and";
+            // 
+            // label4
+            // 
+            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label4.AutoSize = true;
+            this.label4.ForeColor = System.Drawing.Color.White;
+            this.label4.Location = new System.Drawing.Point(55, 135);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(55, 15);
+            this.label4.TabIndex = 28;
+            this.label4.Text = "Value:";
+            // 
+            // select_all
+            // 
+            this.select_all.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.select_all.AutoSize = true;
+            this.select_all.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.select_all.Location = new System.Drawing.Point(5, 107);
+            this.select_all.Margin = new System.Windows.Forms.Padding(4);
+            this.select_all.Name = "select_all";
+            this.select_all.Size = new System.Drawing.Size(109, 19);
+            this.select_all.TabIndex = 8;
+            this.select_all.Text = "Select All";
+            this.select_all.UseVisualStyleBackColor = true;
+            this.select_all.Click += new System.EventHandler(this.select_all_check_box_Click);
+            // 
+            // sectionfilter_button
+            // 
+            this.sectionfilter_button.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.sectionfilter_button.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(38)))));
+            this.sectionfilter_button.Enabled = false;
+            this.sectionfilter_button.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(100)))), ((int)(((byte)(100)))));
+            this.sectionfilter_button.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
+            this.sectionfilter_button.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(84)))), ((int)(((byte)(84)))), ((int)(((byte)(92)))));
+            this.sectionfilter_button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.sectionfilter_button.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.sectionfilter_button.ForeColor = System.Drawing.Color.White;
+            this.sectionfilter_button.Location = new System.Drawing.Point(275, 2);
+            this.sectionfilter_button.Margin = new System.Windows.Forms.Padding(4);
+            this.sectionfilter_button.Name = "sectionfilter_button";
+            this.sectionfilter_button.Size = new System.Drawing.Size(105, 30);
+            this.sectionfilter_button.TabIndex = 34;
+            this.sectionfilter_button.TabStop = false;
+            this.sectionfilter_button.Text = "Filter";
+            this.sectionfilter_button.UseMnemonic = false;
+            this.sectionfilter_button.UseVisualStyleBackColor = false;
+            this.sectionfilter_button.Click += new System.EventHandler(this.filter_sections);
+            // 
+            // sectionfilter_box
+            // 
+            this.sectionfilter_box.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.sectionfilter_box.Enabled = false;
+            this.sectionfilter_box.Location = new System.Drawing.Point(5, 5);
+            this.sectionfilter_box.Name = "sectionfilter_box";
+            this.sectionfilter_box.Size = new System.Drawing.Size(260, 25);
+            this.sectionfilter_box.TabIndex = 33;
+            // 
             // hex_box
             // 
             this.hex_box.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.hex_box.AutoSize = true;
-            this.hex_box.Location = new System.Drawing.Point(12, 273);
+            this.hex_box.Location = new System.Drawing.Point(5, 161);
+            this.hex_box.Margin = new System.Windows.Forms.Padding(4);
             this.hex_box.Name = "hex_box";
-            this.hex_box.Size = new System.Drawing.Size(42, 16);
+            this.hex_box.Size = new System.Drawing.Size(53, 19);
             this.hex_box.TabIndex = 32;
             this.hex_box.Text = "Hex";
             this.hex_box.UseVisualStyleBackColor = true;
@@ -733,46 +789,13 @@ namespace PS4_Cheater
             this.alignment_box.AutoSize = true;
             this.alignment_box.Checked = true;
             this.alignment_box.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.alignment_box.Location = new System.Drawing.Point(167, 221);
+            this.alignment_box.Location = new System.Drawing.Point(270, 107);
+            this.alignment_box.Margin = new System.Windows.Forms.Padding(4);
             this.alignment_box.Name = "alignment_box";
-            this.alignment_box.Size = new System.Drawing.Size(78, 16);
+            this.alignment_box.Size = new System.Drawing.Size(101, 19);
             this.alignment_box.TabIndex = 9;
             this.alignment_box.Text = "Alignment";
             this.alignment_box.UseVisualStyleBackColor = true;
-            // 
-            // value_1_box
-            // 
-            this.value_1_box.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.value_1_box.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(38)))));
-            this.value_1_box.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.value_1_box.ForeColor = System.Drawing.Color.White;
-            this.value_1_box.Location = new System.Drawing.Point(186, 269);
-            this.value_1_box.MaxLength = 31;
-            this.value_1_box.Name = "value_1_box";
-            this.value_1_box.Size = new System.Drawing.Size(100, 21);
-            this.value_1_box.TabIndex = 30;
-            this.value_1_box.Text = "0";
-            // 
-            // value_label
-            // 
-            this.value_label.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.value_label.AutoSize = true;
-            this.value_label.ForeColor = System.Drawing.Color.White;
-            this.value_label.Location = new System.Drawing.Point(184, 248);
-            this.value_label.Name = "value_label";
-            this.value_label.Size = new System.Drawing.Size(41, 12);
-            this.value_label.TabIndex = 31;
-            this.value_label.Text = "Value:";
-            // 
-            // and_label
-            // 
-            this.and_label.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.and_label.AutoSize = true;
-            this.and_label.Location = new System.Drawing.Point(157, 278);
-            this.and_label.Name = "and_label";
-            this.and_label.Size = new System.Drawing.Size(23, 12);
-            this.and_label.TabIndex = 29;
-            this.and_label.Text = "and";
             // 
             // msg
             // 
@@ -780,32 +803,22 @@ namespace PS4_Cheater
             | System.Windows.Forms.AnchorStyles.Right)));
             this.msg.AutoSize = true;
             this.msg.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.msg.ForeColor = System.Drawing.Color.Red;
-            this.msg.Location = new System.Drawing.Point(16, 448);
+            this.msg.ForeColor = System.Drawing.Color.Lime;
+            this.msg.Location = new System.Drawing.Point(5, 359);
+            this.msg.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.msg.Name = "msg";
-            this.msg.Size = new System.Drawing.Size(0, 16);
+            this.msg.Size = new System.Drawing.Size(86, 20);
             this.msg.TabIndex = 21;
-            // 
-            // select_all
-            // 
-            this.select_all.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.select_all.AutoSize = true;
-            this.select_all.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.select_all.Location = new System.Drawing.Point(19, 222);
-            this.select_all.Name = "select_all";
-            this.select_all.Size = new System.Drawing.Size(84, 16);
-            this.select_all.TabIndex = 8;
-            this.select_all.Text = "Select All";
-            this.select_all.UseVisualStyleBackColor = true;
-            this.select_all.Click += new System.EventHandler(this.select_all_check_box_Click);
+            this.msg.Text = "Messages";
             // 
             // progressBar
             // 
             this.progressBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.progressBar.Location = new System.Drawing.Point(12, 467);
+            this.progressBar.Location = new System.Drawing.Point(5, 390);
+            this.progressBar.Margin = new System.Windows.Forms.Padding(4);
             this.progressBar.Name = "progressBar";
-            this.progressBar.Size = new System.Drawing.Size(275, 23);
+            this.progressBar.Size = new System.Drawing.Size(375, 30);
             this.progressBar.TabIndex = 22;
             // 
             // compareTypeList
@@ -818,9 +831,10 @@ namespace PS4_Cheater
             this.compareTypeList.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.compareTypeList.ForeColor = System.Drawing.Color.White;
             this.compareTypeList.FormattingEnabled = true;
-            this.compareTypeList.Location = new System.Drawing.Point(12, 328);
+            this.compareTypeList.Location = new System.Drawing.Point(5, 219);
+            this.compareTypeList.Margin = new System.Windows.Forms.Padding(4);
             this.compareTypeList.Name = "compareTypeList";
-            this.compareTypeList.Size = new System.Drawing.Size(274, 20);
+            this.compareTypeList.Size = new System.Drawing.Size(375, 23);
             this.compareTypeList.TabIndex = 12;
             this.compareTypeList.SelectedIndexChanged += new System.EventHandler(this.compareList_SelectedIndexChanged);
             // 
@@ -834,22 +848,12 @@ namespace PS4_Cheater
             this.valueTypeList.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.valueTypeList.ForeColor = System.Drawing.Color.White;
             this.valueTypeList.FormattingEnabled = true;
-            this.valueTypeList.Location = new System.Drawing.Point(12, 302);
+            this.valueTypeList.Location = new System.Drawing.Point(5, 190);
+            this.valueTypeList.Margin = new System.Windows.Forms.Padding(4);
             this.valueTypeList.Name = "valueTypeList";
-            this.valueTypeList.Size = new System.Drawing.Size(274, 20);
+            this.valueTypeList.Size = new System.Drawing.Size(375, 23);
             this.valueTypeList.TabIndex = 11;
             this.valueTypeList.SelectedIndexChanged += new System.EventHandler(this.valueTypeList_SelectedIndexChanged);
-            // 
-            // label4
-            // 
-            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label4.AutoSize = true;
-            this.label4.ForeColor = System.Drawing.Color.White;
-            this.label4.Location = new System.Drawing.Point(49, 246);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(41, 12);
-            this.label4.TabIndex = 28;
-            this.label4.Text = "Value:";
             // 
             // next_scan_btn
             // 
@@ -863,9 +867,10 @@ namespace PS4_Cheater
             this.next_scan_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.next_scan_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.next_scan_btn.ForeColor = System.Drawing.Color.White;
-            this.next_scan_btn.Location = new System.Drawing.Point(12, 415);
+            this.next_scan_btn.Location = new System.Drawing.Point(5, 320);
+            this.next_scan_btn.Margin = new System.Windows.Forms.Padding(4);
             this.next_scan_btn.Name = "next_scan_btn";
-            this.next_scan_btn.Size = new System.Drawing.Size(275, 25);
+            this.next_scan_btn.Size = new System.Drawing.Size(375, 30);
             this.next_scan_btn.TabIndex = 15;
             this.next_scan_btn.UseMnemonic = false;
             this.next_scan_btn.UseVisualStyleBackColor = false;
@@ -883,9 +888,10 @@ namespace PS4_Cheater
             this.new_scan_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.new_scan_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.new_scan_btn.ForeColor = System.Drawing.Color.White;
-            this.new_scan_btn.Location = new System.Drawing.Point(12, 352);
+            this.new_scan_btn.Location = new System.Drawing.Point(5, 248);
+            this.new_scan_btn.Margin = new System.Windows.Forms.Padding(4);
             this.new_scan_btn.Name = "new_scan_btn";
-            this.new_scan_btn.Size = new System.Drawing.Size(274, 25);
+            this.new_scan_btn.Size = new System.Drawing.Size(375, 30);
             this.new_scan_btn.TabIndex = 13;
             this.new_scan_btn.UseMnemonic = false;
             this.new_scan_btn.UseVisualStyleBackColor = false;
@@ -903,9 +909,10 @@ namespace PS4_Cheater
             this.refresh_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.refresh_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.refresh_btn.ForeColor = System.Drawing.Color.White;
-            this.refresh_btn.Location = new System.Drawing.Point(12, 383);
+            this.refresh_btn.Location = new System.Drawing.Point(5, 284);
+            this.refresh_btn.Margin = new System.Windows.Forms.Padding(4);
             this.refresh_btn.Name = "refresh_btn";
-            this.refresh_btn.Size = new System.Drawing.Size(275, 25);
+            this.refresh_btn.Size = new System.Drawing.Size(375, 30);
             this.refresh_btn.TabIndex = 14;
             this.refresh_btn.UseMnemonic = false;
             this.refresh_btn.UseVisualStyleBackColor = false;
@@ -935,25 +942,142 @@ namespace PS4_Cheater
             this.update_result_list_worker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.update_result_list_worker_ProgressChanged);
             this.update_result_list_worker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.update_result_list_worker_RunWorkerCompleted);
             // 
+            // toolbar
+            // 
+            this.toolbar.Location = new System.Drawing.Point(0, -7);
+            this.toolbar.Name = "toolbar";
+            this.toolbar.Size = new System.Drawing.Size(898, 52);
+            this.toolbar.TabIndex = 51;
+            // 
+            // cheat_list_view
+            // 
+            this.cheat_list_view.AllowUserToAddRows = false;
+            this.cheat_list_view.AllowUserToResizeRows = false;
+            this.cheat_list_view.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cheat_list_view.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.ControlDark;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.cheat_list_view.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.cheat_list_view.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.cheat_list_view.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.cheat_list_view_del,
+            this.cheat_list_view_address,
+            this.cheat_list_view_type,
+            this.cheat_list_view_active,
+            this.cheat_list_view_value,
+            this.cheat_list_view_section,
+            this.cheat_list_view_lock,
+            this.cheat_list_view_description});
+            this.cheat_list_view.ContextMenuStrip = this.cheat_list_menu;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.ControlLight;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.Silver;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.cheat_list_view.DefaultCellStyle = dataGridViewCellStyle4;
+            this.cheat_list_view.Location = new System.Drawing.Point(0, 46);
+            this.cheat_list_view.Margin = new System.Windows.Forms.Padding(4);
+            this.cheat_list_view.Name = "cheat_list_view";
+            this.cheat_list_view.RowHeadersVisible = false;
+            this.cheat_list_view.RowHeadersWidth = 50;
+            this.cheat_list_view.RowTemplate.Height = 23;
+            this.cheat_list_view.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.cheat_list_view.Size = new System.Drawing.Size(675, 300);
+            this.cheat_list_view.TabIndex = 50;
+            this.cheat_list_view.TabStop = false;
+            this.cheat_list_view.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.cheat_list_view_CellClick);
+            this.cheat_list_view.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.cheat_list_view_CellEndEdit);
+            this.cheat_list_view.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.cheat_list_view_RowsRemoved);
+            // 
+            // cheat_list_view_description
+            // 
+            this.cheat_list_view_description.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.cheat_list_view_description.FillWeight = 10F;
+            this.cheat_list_view_description.HeaderText = "Description";
+            this.cheat_list_view_description.Name = "cheat_list_view_description";
+            this.cheat_list_view_description.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // cheat_list_view_lock
+            // 
+            this.cheat_list_view_lock.FillWeight = 5F;
+            this.cheat_list_view_lock.HeaderText = "Lock";
+            this.cheat_list_view_lock.Name = "cheat_list_view_lock";
+            // 
+            // cheat_list_view_section
+            // 
+            this.cheat_list_view_section.FillWeight = 10F;
+            this.cheat_list_view_section.HeaderText = "Section";
+            this.cheat_list_view_section.Name = "cheat_list_view_section";
+            this.cheat_list_view_section.ReadOnly = true;
+            this.cheat_list_view_section.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // cheat_list_view_value
+            // 
+            this.cheat_list_view_value.FillWeight = 45F;
+            this.cheat_list_view_value.HeaderText = "Value";
+            this.cheat_list_view_value.Name = "cheat_list_view_value";
+            this.cheat_list_view_value.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // cheat_list_view_active
+            // 
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.NullValue = "X";
+            this.cheat_list_view_active.DefaultCellStyle = dataGridViewCellStyle3;
+            this.cheat_list_view_active.FillWeight = 5F;
+            this.cheat_list_view_active.HeaderText = "X";
+            this.cheat_list_view_active.Name = "cheat_list_view_active";
+            this.cheat_list_view_active.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.cheat_list_view_active.Text = "X";
+            // 
+            // cheat_list_view_type
+            // 
+            this.cheat_list_view_type.FillWeight = 5F;
+            this.cheat_list_view_type.HeaderText = "Type";
+            this.cheat_list_view_type.Name = "cheat_list_view_type";
+            this.cheat_list_view_type.ReadOnly = true;
+            this.cheat_list_view_type.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // cheat_list_view_address
+            // 
+            this.cheat_list_view_address.FillWeight = 10F;
+            this.cheat_list_view_address.HeaderText = "Address";
+            this.cheat_list_view_address.Name = "cheat_list_view_address";
+            this.cheat_list_view_address.ReadOnly = true;
+            this.cheat_list_view_address.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // cheat_list_view_del
+            // 
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.NullValue = "Delete";
+            this.cheat_list_view_del.DefaultCellStyle = dataGridViewCellStyle2;
+            this.cheat_list_view_del.FillWeight = 10F;
+            this.cheat_list_view_del.HeaderText = "Delete";
+            this.cheat_list_view_del.Name = "cheat_list_view_del";
+            // 
             // main
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(45)))));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(1011, 619);
+            this.ClientSize = new System.Drawing.Size(1428, 749);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.parent);
             this.DoubleBuffered = true;
             this.ForeColor = System.Drawing.Color.Silver;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "main";
             this.Opacity = 0.99D;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "PS4 Cheater";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.main_FormClosing);
             this.Load += new System.EventHandler(this.main_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.cheat_list_view)).EndInit();
             this.cheat_list_menu.ResumeLayout(false);
             this.section_list_menu.ResumeLayout(false);
             this.splitContainer1.Panel1.ResumeLayout(false);
@@ -971,6 +1095,7 @@ namespace PS4_Cheater
             this.splitContainer2.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
             this.splitContainer2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.cheat_list_view)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -981,17 +1106,8 @@ namespace PS4_Cheater
         private ToolStripMenuItem result_list_view_dump_item;
         private TextBox value_1_box;
         private Label value_label;
-        private Label and_label;
         private CheckBox alignment_box;
         private BackgroundWorker update_result_list_worker;
-        private DataGridViewButtonColumn cheat_list_view_del;
-        private DataGridViewTextBoxColumn cheat_list_view_address;
-        private DataGridViewTextBoxColumn cheat_list_view_type;
-        private DataGridViewButtonColumn cheat_list_view_active;
-        private DataGridViewTextBoxColumn cheat_list_view_value;
-        private DataGridViewTextBoxColumn cheat_list_view_section;
-        private DataGridViewCheckBoxColumn cheat_list_view_lock;
-        private DataGridViewTextBoxColumn cheat_list_view_description;
         private ToolStripSeparator result_list_view_separator;
         private ToolStripMenuItem result_list_view_add_to_cheat_list;
         private ContextMenuStrip cheat_list_menu;
@@ -1005,5 +1121,20 @@ namespace PS4_Cheater
         private CheckBox hex_box;
         private ToolStripMenuItem cheat_list_item_find_pointer;
         private ToolStripSeparator cheat_list_item_separator_2;
+        private TextBox sectionfilter_box;
+        private Button sectionfilter_button;
+        private Label and_label;
+        private MappedSection curSection;
+        private ComboBox langCombo;
+        private FlowLayoutPanel toolbar;
+        private DataGridView cheat_list_view;
+        private DataGridViewButtonColumn cheat_list_view_del;
+        private DataGridViewTextBoxColumn cheat_list_view_address;
+        private DataGridViewTextBoxColumn cheat_list_view_type;
+        private DataGridViewButtonColumn cheat_list_view_active;
+        private DataGridViewTextBoxColumn cheat_list_view_value;
+        private DataGridViewTextBoxColumn cheat_list_view_section;
+        private DataGridViewCheckBoxColumn cheat_list_view_lock;
+        private DataGridViewTextBoxColumn cheat_list_view_description;
     }
 }

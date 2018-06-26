@@ -32,6 +32,11 @@ namespace PS4_Cheater
             this.processManager = processManager;
 
             InitializeComponent();
+
+            this.label1.Text = LangHelper.GetLang("Address:");
+            this.find_btn.Text = LangHelper.GetLang("First Scan");
+            this.next_btn.Text = LangHelper.GetLang("Next Scan");
+            this.fast_scan_box.Text = LangHelper.GetLang("FastScan");
         }
 
         private void PointerFinder_Load(object sender, EventArgs e)
@@ -157,16 +162,19 @@ namespace PS4_Cheater
         {
 			if (!Confirmation)
             {
-				Confirmation = true;
-                MessageBox.Show("Verify if you're connected!");
+                if(MessageBox.Show(this, LangHelper.GetLang("Verify if you're connected!"), null, MessageBoxButtons.YesNo)==DialogResult.Yes) {
+                    Confirmation = true;
+                    next_btn_Click(sender, e);
+                }
+                return;
 			}
 			else{
-            ulong address = ulong.Parse(address_box.Text, System.Globalization.NumberStyles.HexNumber);
-            result_counter = 0;
-            pointerList.Stop = false;
-            next_pointer_finder_worker.RunWorkerAsync(new PointerFinderWorkerArgs(address, null));
-			Confirmation = false;
-			}
+                ulong address = ulong.Parse(address_box.Text, System.Globalization.NumberStyles.HexNumber);
+                result_counter = 0;
+                pointerList.Stop = false;
+                next_pointer_finder_worker.RunWorkerAsync(new PointerFinderWorkerArgs(address, null));
+                Confirmation = false;
+            }
             //DoWorkEventArgs doWorkEventArgs = new DoWorkEventArgs(new PointerFinderWorkerArgs(address, null));
             //next_pointer_finder_worker_DoWork(null, doWorkEventArgs);
         }

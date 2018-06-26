@@ -13,6 +13,8 @@ namespace PS4_Cheater
         DATA_TYPE,
         SIMPLE_POINTER_TYPE,
         NONE_TYPE,
+        BATCH_CODE_TYPE,
+        CHEAT_CODE_TYPE,
     }
 
     public enum CheatOperatorType
@@ -23,6 +25,8 @@ namespace PS4_Cheater
         SIMPLE_POINTER_TYPE,
         POINTER_TYPE,
         ARITHMETIC_TYPE,
+        BATCH_CODE_TYPE,
+        CHEAT_CODE_TYPE
     }
 
     public enum ToStringType
@@ -30,6 +34,8 @@ namespace PS4_Cheater
         DATA_TYPE,
         ADDRESS_TYPE,
         ARITHMETIC_TYPE,
+        BATCH_CODE_TYPE,
+        CHEAT_CODE_TYPE
     }
 
     public class CheatOperator
@@ -310,6 +316,7 @@ namespace PS4_Cheater
             int sectionID = int.Parse(cheat_elements[start_idx + SECTION_ID]);
             if (sectionID >= ProcessManager.MappedSectionList.Count || sectionID < 0)
             {
+                start_idx += 2;
                 return false;
             }
 
@@ -374,7 +381,7 @@ namespace PS4_Cheater
             throw new Exception("Pointer Set!!");
         }
 
-        private ulong GetAddress()
+        public ulong GetAddress()
         {
             ulong address = BitConverter.ToUInt64(Address.GetRuntime(), 0);
             int i = 0;
@@ -738,6 +745,7 @@ namespace PS4_Cheater
 
     class CheatList
     {
+        public  const bool IS_DEV = false;
         private List<Cheat> cheat_list;
 
         private const int CHEAT_CODE_HEADER_VERSION = 0;
@@ -812,7 +820,7 @@ namespace PS4_Cheater
                 comboBox.SelectedItem = process_name;
             }
 
-            if (process_name != (string)comboBox.SelectedItem)
+            if (process_name != (string)comboBox.SelectedItem && !IS_DEV)
             {
                 MessageBox.Show("Invalid process or refresh processes first.");
                 return false;
@@ -836,7 +844,7 @@ namespace PS4_Cheater
             if (game_id != "" && game_ver != "")
             {
                 GameInfo gameInfo = new GameInfo();
-                if (gameInfo.GameID != game_id)
+                if (gameInfo.GameID != game_id && !IS_DEV)
                 {
                     if (MessageBox.Show("Your Game ID(" + gameInfo.GameID + ") is different with cheat file(" + game_id + "), still load?",
                         "Invalid game ID", MessageBoxButtons.YesNo) != DialogResult.Yes)
@@ -845,7 +853,7 @@ namespace PS4_Cheater
                     }
                 }
 
-                if (gameInfo.Version != game_ver)
+                if (gameInfo.Version != game_ver && !IS_DEV)
                 {
                     if (MessageBox.Show("Your game version(" + gameInfo.Version + ") is different with cheat file(" + game_ver + "), still load?",
                         "Invalid game version", MessageBoxButtons.YesNo) != DialogResult.Yes)
@@ -865,7 +873,43 @@ namespace PS4_Cheater
                     continue;
                 }
 
-                if (cheat_elements[CHEAT_CODE_TYPE] == "data")
+                Cheat cheat = null;
+                switch(cheat_elements[CHEAT_CODE_TYPE]) {
+                    case "data":
+                        cheat = new DataCheat(processManager);
+                        if (!cheat.Parse(cheat_elements)) {
+                            MessageBox.Show("Invaid cheat code:" + cheat_tuple);
+                            continue;
+                        }
+                        break;
+                    case "simple pointer":
+                        cheat = new SimplePointerCheat(processManager);
+                        if (!cheat.Parse(cheat_elements))
+                            continue;
+                        break;
+                    case "@batchcode":
+                        cheat = new BatchCodeCheat(processManager);
+                        if (!cheat.Parse(cheat_elements))
+                        {
+                            MessageBox.Show("Invaid @batchcode:" + cheat_tuple);
+                            continue;
+                        }
+                        break;
+                    case "@cheatcode":
+                        cheat = new CheatCodeCheat(processManager);
+                        if (!cheat.Parse(cheat_elements))
+                        {
+                            MessageBox.Show("Invaid @cheatcode:" + cheat_tuple);
+                            continue;
+                        }
+                        break;
+                    default:
+                        MessageBox.Show("Invaid cheat code:" + cheat_tuple);
+                        continue;
+                }
+                cheat_list.Add(cheat);
+
+                /*if (cheat_elements[CHEAT_CODE_TYPE] == "data")
                 {
                     DataCheat cheat = new DataCheat(processManager);
                     if (!cheat.Parse(cheat_elements))
@@ -888,7 +932,7 @@ namespace PS4_Cheater
                 {
                     MessageBox.Show("Invaid cheat code:" + cheat_tuple);
                     continue;
-                }
+                }*/
             }
             return true;
         }
