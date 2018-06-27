@@ -69,8 +69,8 @@
   </PropertyGroup>
   <PropertyGroup />
   <ItemGroup>
-    <Reference Include="Be.Windows.Forms.HexBox, Version=1.6.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Be.Windows.Forms.HexBox.1.6.1\lib\net40\Be.Windows.Forms.HexBox.dll</HintPath>
+    <Reference Include="Be.Windows.Forms.HexBox">
+      <HintPath>.\Be.Windows.Forms.HexBox.dll</HintPath>
     </Reference>
     <Reference Include="librpc">
       <HintPath>.\librpc.dll</HintPath>
