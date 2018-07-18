@@ -165,7 +165,7 @@
             
             this.select_all.Text = GetLang("Select All");
             this.alignment_box.Text = GetLang("Alignment");
-            this.label4.Text = GetLang("Value:");
+            this.value_1_label.Text = GetLang("Value:");
             this.value_label.Text = GetLang("Value:");
             this.hex_box.Text = GetLang("Hex");
             this.sectionfilter_button.Text = GetLang("Filter");
@@ -357,7 +357,7 @@
 
                     sectionfilter_box.Enabled = false;
                     sectionfilter_button.Enabled = false;
-
+                    sectionsize_box.Enabled = false;
                 }
                 else if (new_scan_btn.Text == GetLang(CONSTANT.NEW_SCAN))
                 {
@@ -374,6 +374,7 @@
 
                     sectionfilter_box.Enabled = true;
                     sectionfilter_button.Enabled = true;
+                    sectionsize_box.Enabled = true;
 
                 }
                 else if (new_scan_btn.Text == GetLang(CONSTANT.STOP))
@@ -1085,6 +1086,7 @@
                 }
                 sectionfilter_box.Enabled = true;
                 sectionfilter_button.Enabled = true;
+                sectionsize_box.Enabled = true;
             }
             catch (Exception exception)
             {
@@ -1246,14 +1248,14 @@
             if ((string)compareTypeList.SelectedItem == GetLang(CONSTANT.BETWEEN_VALUE))
             {
                 value_1_box.Visible = true;
-                value_label.Visible = true;
+                value_1_label.Visible = true;
                 and_label.Visible = true;
                 value_box.Width = 100;
             }
             else
             {
                 value_1_box.Visible = false;
-                value_label.Visible = false;
+                value_1_label.Visible = false;
                 and_label.Visible = false;
                 value_box.Width = 215;
             }
@@ -1434,15 +1436,36 @@
         {
             string filterStr = sectionfilter_box.Text;
             bool noFilter = string.IsNullOrWhiteSpace(filterStr);
-            if (!noFilter) filterStr = filterStr.ToUpper();
+            bool isMatch = true;
+            if (!noFilter) {
+                isMatch = !filterStr.StartsWith("^");
+                if (!isMatch) filterStr = filterStr.Substring(1);
+                filterStr = filterStr.ToUpper();
+            }
             CheckedListBox.ObjectCollection sections = section_list_box.Items;
             sections.Clear();
-            for (int i = 0; i < sectionInfos.Count; i++)
+            int filterSize = Decimal.ToInt32(sectionsize_box.Value);
+            if(filterSize>0)
             {
-                string secName = (string)sectionInfos[i];                
-                if (noFilter || secName.IndexOf(filterStr)==0)
+                filterSize = filterSize * 1024;
+            }
+            for (int i = 0; i < this.sectionInfos.Count; i++)
+            {
+                string secName = (string)sectionInfos[i];
+                if(filterSize > 0)
                 {
+                    MappedSection section = this.processManager.MappedSectionList[i];
+                    int sectionSize = section.Length;
+                    if (sectionSize < filterSize) continue;
+                }
+                if (noFilter) {
                     sections.Add(secName, false);
+                } else {
+                    int idx = secName.IndexOf(filterStr);
+                    if(isMatch? idx>-1 : idx<0)
+                    {
+                        sections.Add(secName, false);
+                    }
                 }
             }
             section_list_box.BeginUpdate();
@@ -1453,6 +1476,11 @@
         {
             string locale = (string)this.langCombo.SelectedItem;
             this.SetLocale(locale);
+        }
+
+        private void sectionsize_box_ValueChanged(object sender, EventArgs e)
+        {
+            this.filter_sections(sender, e);
         }
     }
 }
