@@ -345,7 +345,7 @@ namespace PS4_Cheater
             this.section_list_box.Location = new System.Drawing.Point(5, 75);
             this.section_list_box.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.section_list_box.Name = "section_list_box";
-            this.section_list_box.Size = new System.Drawing.Size(337, 165);
+            this.section_list_box.Size = new System.Drawing.Size(337, 142);
             this.section_list_box.TabIndex = 7;
             this.section_list_box.TabStop = false;
             this.section_list_box.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.section_list_box_ItemCheck);
@@ -379,7 +379,7 @@ namespace PS4_Cheater
             this.value_box.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(38)))));
             this.value_box.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.value_box.ForeColor = System.Drawing.Color.White;
-            this.value_box.Location = new System.Drawing.Point(69, 313);
+            this.value_box.Location = new System.Drawing.Point(69, 311);
             this.value_box.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.value_box.MaxLength = 500;
             this.value_box.Name = "value_box";
@@ -546,7 +546,7 @@ namespace PS4_Cheater
             this.cheat_list_view.RowHeadersWidth = 50;
             this.cheat_list_view.RowTemplate.Height = 23;
             this.cheat_list_view.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.cheat_list_view.Size = new System.Drawing.Size(900, 332);
+            this.cheat_list_view.Size = new System.Drawing.Size(900, 330);
             this.cheat_list_view.TabIndex = 50;
             this.cheat_list_view.TabStop = false;
             this.cheat_list_view.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.cheat_list_view_CellClick);
@@ -626,7 +626,7 @@ namespace PS4_Cheater
             this.toolbar.Location = new System.Drawing.Point(0, -7);
             this.toolbar.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.toolbar.Name = "toolbar";
-            this.toolbar.Size = new System.Drawing.Size(899, 47);
+            this.toolbar.Size = new System.Drawing.Size(899, 45);
             this.toolbar.TabIndex = 51;
             // 
             // splitContainer2
@@ -808,7 +808,7 @@ namespace PS4_Cheater
             this.langCombo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.langCombo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.langCombo.FormattingEnabled = true;
-            this.langCombo.Location = new System.Drawing.Point(5, 516);
+            this.langCombo.Location = new System.Drawing.Point(5, 514);
             this.langCombo.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.langCombo.Name = "langCombo";
             this.langCombo.Size = new System.Drawing.Size(112, 26);
@@ -820,7 +820,7 @@ namespace PS4_Cheater
             this.value_label.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.value_label.AutoSize = true;
             this.value_label.ForeColor = System.Drawing.Color.White;
-            this.value_label.Location = new System.Drawing.Point(69, 291);
+            this.value_label.Location = new System.Drawing.Point(69, 289);
             this.value_label.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.value_label.Name = "value_label";
             this.value_label.Size = new System.Drawing.Size(62, 18);
@@ -833,7 +833,7 @@ namespace PS4_Cheater
             this.value_1_box.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(38)))));
             this.value_1_box.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.value_1_box.ForeColor = System.Drawing.Color.White;
-            this.value_1_box.Location = new System.Drawing.Point(229, 313);
+            this.value_1_box.Location = new System.Drawing.Point(229, 311);
             this.value_1_box.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.value_1_box.MaxLength = 31;
             this.value_1_box.Name = "value_1_box";
@@ -845,7 +845,7 @@ namespace PS4_Cheater
             // 
             this.and_label.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.and_label.AutoSize = true;
-            this.and_label.Location = new System.Drawing.Point(189, 318);
+            this.and_label.Location = new System.Drawing.Point(189, 316);
             this.and_label.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.and_label.Name = "and_label";
             this.and_label.Size = new System.Drawing.Size(35, 18);
@@ -857,7 +857,7 @@ namespace PS4_Cheater
             this.value_1_label.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.value_1_label.AutoSize = true;
             this.value_1_label.ForeColor = System.Drawing.Color.White;
-            this.value_1_label.Location = new System.Drawing.Point(229, 291);
+            this.value_1_label.Location = new System.Drawing.Point(229, 289);
             this.value_1_label.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.value_1_label.Name = "value_1_label";
             this.value_1_label.Size = new System.Drawing.Size(62, 18);
@@ -869,7 +869,7 @@ namespace PS4_Cheater
             this.select_all.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.select_all.AutoSize = true;
             this.select_all.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.select_all.Location = new System.Drawing.Point(5, 266);
+            this.select_all.Location = new System.Drawing.Point(5, 264);
             this.select_all.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.select_all.Name = "select_all";
             this.select_all.Size = new System.Drawing.Size(124, 22);
@@ -915,7 +915,7 @@ namespace PS4_Cheater
             // 
             this.hex_box.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.hex_box.AutoSize = true;
-            this.hex_box.Location = new System.Drawing.Point(5, 316);
+            this.hex_box.Location = new System.Drawing.Point(5, 314);
             this.hex_box.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.hex_box.Name = "hex_box";
             this.hex_box.Size = new System.Drawing.Size(61, 22);
@@ -929,7 +929,7 @@ namespace PS4_Cheater
             this.alignment_box.AutoSize = true;
             this.alignment_box.Checked = true;
             this.alignment_box.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.alignment_box.Location = new System.Drawing.Point(229, 266);
+            this.alignment_box.Location = new System.Drawing.Point(229, 264);
             this.alignment_box.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.alignment_box.Name = "alignment_box";
             this.alignment_box.Size = new System.Drawing.Size(115, 22);
@@ -944,7 +944,7 @@ namespace PS4_Cheater
             this.msg.AutoSize = true;
             this.msg.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.msg.ForeColor = System.Drawing.Color.Lime;
-            this.msg.Location = new System.Drawing.Point(5, 461);
+            this.msg.Location = new System.Drawing.Point(5, 459);
             this.msg.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.msg.Name = "msg";
             this.msg.Size = new System.Drawing.Size(103, 25);
@@ -955,7 +955,7 @@ namespace PS4_Cheater
             // 
             this.progressBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.progressBar.Location = new System.Drawing.Point(5, 488);
+            this.progressBar.Location = new System.Drawing.Point(5, 486);
             this.progressBar.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.progressBar.Name = "progressBar";
             this.progressBar.Size = new System.Drawing.Size(338, 26);
@@ -971,7 +971,7 @@ namespace PS4_Cheater
             this.compareTypeList.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.compareTypeList.ForeColor = System.Drawing.Color.White;
             this.compareTypeList.FormattingEnabled = true;
-            this.compareTypeList.Location = new System.Drawing.Point(179, 344);
+            this.compareTypeList.Location = new System.Drawing.Point(179, 342);
             this.compareTypeList.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.compareTypeList.Name = "compareTypeList";
             this.compareTypeList.Size = new System.Drawing.Size(165, 26);
@@ -988,7 +988,7 @@ namespace PS4_Cheater
             this.valueTypeList.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.valueTypeList.ForeColor = System.Drawing.Color.White;
             this.valueTypeList.FormattingEnabled = true;
-            this.valueTypeList.Location = new System.Drawing.Point(5, 344);
+            this.valueTypeList.Location = new System.Drawing.Point(5, 342);
             this.valueTypeList.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.valueTypeList.Name = "valueTypeList";
             this.valueTypeList.Size = new System.Drawing.Size(165, 26);
@@ -1007,7 +1007,7 @@ namespace PS4_Cheater
             this.next_scan_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.next_scan_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.next_scan_btn.ForeColor = System.Drawing.Color.White;
-            this.next_scan_btn.Location = new System.Drawing.Point(5, 433);
+            this.next_scan_btn.Location = new System.Drawing.Point(5, 431);
             this.next_scan_btn.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.next_scan_btn.Name = "next_scan_btn";
             this.next_scan_btn.Size = new System.Drawing.Size(338, 26);
@@ -1028,7 +1028,7 @@ namespace PS4_Cheater
             this.new_scan_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.new_scan_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.new_scan_btn.ForeColor = System.Drawing.Color.White;
-            this.new_scan_btn.Location = new System.Drawing.Point(5, 377);
+            this.new_scan_btn.Location = new System.Drawing.Point(5, 375);
             this.new_scan_btn.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.new_scan_btn.Name = "new_scan_btn";
             this.new_scan_btn.Size = new System.Drawing.Size(338, 26);
@@ -1049,7 +1049,7 @@ namespace PS4_Cheater
             this.refresh_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.refresh_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.refresh_btn.ForeColor = System.Drawing.Color.White;
-            this.refresh_btn.Location = new System.Drawing.Point(5, 405);
+            this.refresh_btn.Location = new System.Drawing.Point(5, 403);
             this.refresh_btn.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.refresh_btn.Name = "refresh_btn";
             this.refresh_btn.Size = new System.Drawing.Size(338, 26);
