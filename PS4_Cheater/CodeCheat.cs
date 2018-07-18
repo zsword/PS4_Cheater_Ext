@@ -584,7 +584,13 @@ namespace PS4_Cheater
             string save_buf = "";
             save_buf += "@batchcode|";
             save_buf += this.AddressType+"|";
-            save_buf += Destination.Dump(true) + "|";
+            switch(this.AddressType)
+            {
+                case "data":
+                    save_buf += ((AddressCheatOperator)Destination).DumpOldFormat();break;
+                default:
+                    save_buf += Destination.Dump(true) + "|";break;
+            }
             save_buf += "code||";
             save_buf += Source.ToString(true)+"|";
             save_buf += (Lock ? "1" : "0") + "|";
