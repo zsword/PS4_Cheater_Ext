@@ -352,33 +352,4 @@ namespace PS4_Cheater
             fast_scan = fast_scan_box.Checked;
         }
     }
-
-    public class PointerResult
-    {
-        public int BaseSectionID { get; }
-        public ulong BaseOffset { get; }
-        public long[] Offsets { get; }
-
-        public PointerResult(int BaseSectionID, ulong BaseOffset, List<long> Offsets)
-        {
-            this.BaseSectionID = BaseSectionID;
-            this.BaseOffset = BaseOffset;
-            this.Offsets = new long[Offsets.Count];
-            for (int i = 0; i < this.Offsets.Length; ++i)
-            {
-                this.Offsets[i] = Offsets[this.Offsets.Length - 1 - i];
-            }
-
-        }
-
-        public ulong GetBaseAddress(MappedSectionList mappedSectionList)
-        {
-            if (BaseSectionID >= mappedSectionList.Count)
-                return 0;
-
-            MappedSection section = mappedSectionList[BaseSectionID];
-
-            return section.Start + BaseOffset;
-        }
-    }
 }

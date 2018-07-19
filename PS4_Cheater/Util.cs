@@ -1,4 +1,4 @@
-﻿using Be.Windows.Forms;
+﻿//using Be.Windows.Forms;
 using System;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
@@ -10,7 +10,7 @@ using System.Collections.Generic;
 namespace PS4_Cheater
 {
 
-    class GameInfo
+    public class GameInfo
     {
         const string GAME_INFO_4_05_PROCESS_NAME = "SceCdlgApp";
         const string GAME_INFO_4_05_SECTION_NAME = "libSceCdlgUtilServer.sprx";
@@ -93,7 +93,7 @@ namespace PS4_Cheater
         }
     }
 
-    class CONSTANT
+    public class CONSTANT
     {
         public const uint SAVE_FLAG_NONE = 0x0;
         public const uint SAVE_FLAG_LOCK = 0x1;
@@ -134,6 +134,7 @@ namespace PS4_Cheater
         public const string NEW_SCAN = "New Scan";
         public const string NEXT_SCAN = "Next Scan";
         public const string REFRESH = "Refresh";
+        public const ulong START_ADDRESS = 0x400000;
 
         public static string[] SEARCH_VALUE_TYPE = new string[]
         {
@@ -156,55 +157,5 @@ namespace PS4_Cheater
         public static int DefaultProcessID = 0;
         public static int SceProcessID = 0;
         public static int Version = 0;
-    }
-       
-    class Config
-    {
-        public static string fileName = System.IO.Path.GetFileName(Application.ExecutablePath);
-        public static bool addSetting(string key, string value)
-        {
-            try
-            {
-                Configuration config = ConfigurationManager.OpenExeConfiguration(fileName);
-                config.AppSettings.Settings.Add(key, value);
-                config.Save();
-                return true;
-            }
-            catch
-            {
-
-            }
-            return false;
-        }
-
-        public static string getSetting(string key)
-        {
-            try
-            {
-                Configuration config = System.Configuration.ConfigurationManager.OpenExeConfiguration(fileName);
-                string value = config.AppSettings.Settings[key].Value;
-                return value;
-            }
-            catch
-            {
-
-            }
-            return "";
-        }
-        public static bool updateSeeting(string key, string newValue)
-        {
-            try
-            {
-                Configuration config = System.Configuration.ConfigurationManager.OpenExeConfiguration(fileName);
-                string value = config.AppSettings.Settings[key].Value = newValue;
-                config.Save();
-                return true;
-            }
-            catch
-            {
-                addSetting(key, newValue);
-            }
-            return false;
-        }
     }
 }

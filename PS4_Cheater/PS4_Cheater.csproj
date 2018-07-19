@@ -93,7 +93,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CheatList.cs" />
+    <Compile Include="CheatPluginHelper.cs" />
     <Compile Include="CodeCheat.cs" />
+    <Compile Include="Config.cs" />
     <Compile Include="HexEditor.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -107,7 +109,6 @@
     <Compile Include="main.Designer.cs">
       <DependentUpon>main.cs</DependentUpon>
     </Compile>
-    <Compile Include="MemoryHelper.cs" />
     <Compile Include="MemoryViewByteProvider.cs" />
     <Compile Include="NewAddress.cs">
       <SubType>Form</SubType>
@@ -121,13 +122,10 @@
     <Compile Include="PointerFinder.Designer.cs">
       <DependentUpon>PointerFinder.cs</DependentUpon>
     </Compile>
-    <Compile Include="PointerList.cs" />
-    <Compile Include="ProcessManager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PS4APIWarpper.cs" />
     <Compile Include="ScanThread.cs" />
-    <Compile Include="Util.cs" />
     <EmbeddedResource Include="HexEditor.resx">
       <DependentUpon>HexEditor.cs</DependentUpon>
     </EmbeddedResource>
@@ -174,6 +172,12 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="ICheatPlugin.csproj">
+      <Project>{0f0c70c1-1aac-4716-8350-9f2503993848}</Project>
+      <Name>ICheatPlugin</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

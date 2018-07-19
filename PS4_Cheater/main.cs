@@ -13,12 +13,14 @@
     using System.Windows.Forms;
     using System.Linq;
     using System.Threading;
+    using System.Reflection;
 
     public partial class main : Form
     {
         private ProcessManager processManager = new ProcessManager();
         private MemoryHelper memoryHelper = new MemoryHelper(true, 0);
         private CheatList cheatList = new CheatList();
+        private CheatPluginHelper cheatPluginHelper = new CheatPluginHelper();
 
         private const int CHEAT_LIST_DEL = 0;
         private const int CHEAT_LIST_ADDRESS = 1;
@@ -96,6 +98,7 @@
         public main()
         {
             this.InitializeComponent();
+            this.cheatPluginHelper.loadPlugins();
         }
 
         private void main_Load(object sender, EventArgs e)
@@ -974,7 +977,15 @@
 
         private void load_address_btn_Click(object sender, EventArgs e)
         {
-            open_file_dialog.Filter = "Cheat files (*.cht)|*.cht";
+            string filter = "Cheat files (*.cht)|*.cht";
+            List<ICheatPlugin> cheatPlugins = this.cheatPluginHelper.cheatPlugins;
+            List<Type> cheatTypes = this.cheatPluginHelper.cheatTypes;
+            foreach(ICheatPlugin plugin in cheatPlugins)
+            {
+                string typefile = plugin.GetCodeFileFilter();
+                filter+=String.Format("|{0}",typefile);
+            }
+            open_file_dialog.Filter = filter;
             open_file_dialog.FilterIndex = 1;
             open_file_dialog.RestoreDirectory = true;
 
@@ -984,7 +995,16 @@
             }
 
             cheat_list_view.Rows.Clear();
-            cheatList.LoadFile(open_file_dialog.FileName, processManager, processes_comboBox);
+            int filterIdx = open_file_dialog.FilterIndex;
+            if (filterIdx > 1)
+            {
+                ICheatPlugin cheatPlugin = cheatPlugins[filterIdx - 2];
+                cheatList.LoadFile(open_file_dialog.FileName, processManager, processes_comboBox, cheatPlugin);
+            }
+            else
+            {
+                cheatList.LoadFile(open_file_dialog.FileName, processManager, processes_comboBox);
+            }
 
             for (int i = 0; i < cheatList.Count; ++i)
             {
@@ -1001,7 +1021,7 @@
                         add_new_row_to_cheat_list_view((BatchCodeCheat)cheat);
                         break;
                     case CheatType.CHEAT_CODE_TYPE:
-                        add_new_row_to_cheat_list_view((CheatCodeCheat)cheat);
+                        //add_new_row_to_cheat_list_view((CheatCodeCheat)cheat);
                         break;
                     default:
                         break;
