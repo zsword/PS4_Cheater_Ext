@@ -31,6 +31,10 @@ namespace PS4_Cheater
             try
             {
                 Configuration config = System.Configuration.ConfigurationManager.OpenExeConfiguration(fileName);
+                if(config.AppSettings.Settings[key]==null)
+                {
+                    return null;
+                }
                 string value = config.AppSettings.Settings[key].Value;
                 return value;
             }
@@ -45,7 +49,14 @@ namespace PS4_Cheater
             try
             {
                 Configuration config = System.Configuration.ConfigurationManager.OpenExeConfiguration(fileName);
-                string value = config.AppSettings.Settings[key].Value = newValue;
+                if (config.AppSettings.Settings[key] == null)
+                {
+                    config.AppSettings.Settings.Add(key, newValue);
+                }
+                else
+                {
+                    string value = config.AppSettings.Settings[key].Value = newValue;
+                }
                 config.Save();
                 return true;
             }

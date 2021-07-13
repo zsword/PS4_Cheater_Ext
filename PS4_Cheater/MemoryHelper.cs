@@ -7,6 +7,7 @@ using librpc;
 using System.Threading;
 using System.Globalization;
 using System.Collections;
+using System.Diagnostics;
 
 namespace PS4_Cheater
 {
@@ -77,8 +78,9 @@ namespace PS4_Cheater
                 mutex.ReleaseMutex();
                 return true;
             }
-            catch
+            catch(Exception e)
             {
+                Debug.Fail("PS4RPC Connect error: " + e);
                 mutex.ReleaseMutex();
             }
             return false;
@@ -158,6 +160,7 @@ namespace PS4_Cheater
             mutex.WaitOne();
             try
             {
+                Debug.WriteLine("Conn: "+ps4.IsConnected);
                 ProcessList processList = ps4.GetProcessList();
                 mutex.ReleaseMutex();
                 return processList;

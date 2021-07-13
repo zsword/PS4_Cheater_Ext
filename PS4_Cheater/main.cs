@@ -110,7 +110,7 @@
             int langId = 0;
             foreach (string lang in locales)
             {
-                    langCombo.Items.Add(lang);
+                langCombo.Items.Add(lang);
                 if (lang.Equals(language)) {
                     langId = idx;
                 }
@@ -162,6 +162,7 @@
             string[] values = LangHelper.GetLangs(CONSTANT.SEARCH_VALUE_TYPE);
             valueTypeList.Items.AddRange(values);
 
+            this.conn_btn.Text = GetLang(CONSTANT.CONNECT_VALUE);
             this.next_scan_btn.Text = GetLang(CONSTANT.NEXT_SCAN);
             this.new_scan_btn.Text = GetLang(CONSTANT.FIRST_SCAN);
             this.refresh_btn.Text = GetLang(CONSTANT.REFRESH);
@@ -1117,8 +1118,7 @@
         private void get_processes_btn_Click(object sender, EventArgs e)
         {
             try
-            {
-				
+            {	                
                 MemoryHelper.Connect(ip_box.Text,(Util.Version == 505));
 
                 this.processes_comboBox.Items.Clear();
@@ -1501,6 +1501,11 @@
         private void sectionsize_box_ValueChanged(object sender, EventArgs e)
         {
             this.filter_sections(sender, e);
+        }
+
+        private void conn_btn_Click(object sender, EventArgs e)
+        {
+            MemoryHelper.Connect(ip_box.Text, (Util.Version == 505));
         }
     }
 }
