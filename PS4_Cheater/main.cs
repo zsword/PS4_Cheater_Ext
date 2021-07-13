@@ -1,6 +1,7 @@
 ﻿namespace PS4_Cheater
 {
-    using librpc;
+    using libdebug;
+    using debugwatch;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
@@ -21,6 +22,8 @@
         private MemoryHelper memoryHelper = new MemoryHelper(true, 0);
         private CheatList cheatList = new CheatList();
         private CheatPluginHelper cheatPluginHelper = new CheatPluginHelper();
+        private DebugWatchForm debugForm;
+        private int processId;
 
         private const int CHEAT_LIST_DEL = 0;
         private const int CHEAT_LIST_ADDRESS = 1;
@@ -39,6 +42,9 @@
         private const int VERSION_LIST_405 = 2;
         private const int VERSION_LIST_455 = 1;
         private const int VERSION_LIST_505 = 0;
+        private const int VERSION_LIST_672 = 3;
+        private const int VERSION_LIST_702 = 4;
+        private const int VERSION_LIST_755 = 5;
 
         private const int VERSION_LIST_DEFAULT = VERSION_LIST_505;
 
@@ -1091,9 +1097,11 @@
                 section_list_box.Enabled = true;
 
                 ProcessInfo processInfo = processManager.GetProcessInfo(processes_comboBox.Text);
-                Util.DefaultProcessID = processInfo.pid;
-                processManager.MappedSectionList.InitMemorySectionList(processInfo);
-
+                int pid = processInfo.pid;
+                Util.DefaultProcessID = pid;
+                ProcessMap processMap = processManager.GetProcessMaps(pid);
+                processManager.MappedSectionList.InitMemorySectionList(processMap);
+                this.processId = pid;
                 section_list_box.BeginUpdate();
                 for (int i = 0; i < processManager.MappedSectionList.Count; ++i)
                 {
@@ -1118,7 +1126,13 @@
         private void get_processes_btn_Click(object sender, EventArgs e)
         {
             try
-            {	                
+            {
+                string ip = ip_box.Text;
+                if (String.IsNullOrEmpty(ip))
+                {
+                    MessageBox.Show(this, "IP is Invalid", "Warning", 0, MessageBoxIcon.Error);
+                    return;
+                }
                 MemoryHelper.Connect(ip_box.Text,(Util.Version == 505));
 
                 this.processes_comboBox.Items.Clear();
@@ -1146,6 +1160,12 @@
 
         private void send_payload_btn_Click(object sender, EventArgs e)
         {
+            string ip = this.ip_box.Text;
+            if(String.IsNullOrEmpty(ip))
+            {
+                MessageBox.Show(this, "Ip is Invalid", "Warning", 0, MessageBoxIcon.Warning);
+                return;
+            }
             try
             {
                 string patch_path = Application.StartupPath;
@@ -1160,10 +1180,19 @@
 					case VERSION_LIST_505:
                         patch_path += @"\5.05\";
                         break;
+                    case VERSION_LIST_672:
+                        patch_path += @"\6.72\";
+                        break;
+                    case VERSION_LIST_702:
+                        patch_path += @"\7.02\";
+                        break;
+                    case VERSION_LIST_755:
+                        patch_path += @"\7.55\";
+                        break;
                     default:
                         throw new System.ArgumentException(GetLang("Unknown version."));
                 }
-
+                
                 this.send_pay_load(this.ip_box.Text, patch_path + @"payload.bin", Convert.ToInt32(this.port_box.Text));
                 Thread.Sleep(1000);
                 updateMessage("Injecting kpayload.elf...");
@@ -1506,6 +1535,22 @@
         private void conn_btn_Click(object sender, EventArgs e)
         {
             MemoryHelper.Connect(ip_box.Text, (Util.Version == 505));
+        }
+
+        private void attach_btn_Click(object sender, EventArgs e)
+        {
+            if(this.debugForm==null)
+            {
+                this.debugForm = new DebugWatchForm();
+            }
+            int pid = this.processId;
+            this.debugForm.attachDebug(MemoryHelper.ps4, pid, this.ip_box.Text, sender, e);
+            this.debugForm.ShowDialog(this);
+        }
+
+        private void main_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            MemoryHelper.Disconnect();
         }
     }
 }

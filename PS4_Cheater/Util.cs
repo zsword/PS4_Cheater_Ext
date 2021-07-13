@@ -4,7 +4,7 @@ using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Windows.Forms;
 using System.Configuration;
-using librpc;
+using libdebug;
 using System.Collections.Generic;
 
 namespace PS4_Cheater
@@ -72,10 +72,11 @@ namespace PS4_Cheater
             {
                 ProcessManager processManager = new ProcessManager();
                 ProcessInfo processInfo = processManager.GetProcessInfo(process_name);
-
+                int pid = processInfo.pid;
                 MemoryHelper memoryHelper = new MemoryHelper(false, processInfo.pid);
+                ProcessMap processMap = processManager.GetProcessMaps(pid);
                 MappedSectionList mappedSectionList = processManager.MappedSectionList;
-                mappedSectionList.InitMemorySectionList(processInfo);
+                mappedSectionList.InitMemorySectionList(processMap);
                 List<MappedSection> sectionList = mappedSectionList.GetMappedSectionList(section_name, section_prot);
 
                 if (sectionList.Count != 1)
@@ -102,8 +103,8 @@ namespace PS4_Cheater
         public const uint SECTION_EXECUTABLE = 0x5;
 
         public const uint MAJOR_VERSION = 1;
-        public const uint SECONDARY_VERSION = 4;
-        public const uint THIRD_VERSION = 5;
+        public const uint SECONDARY_VERSION = 5;
+        public const uint THIRD_VERSION = 3;
 
         public const string CONNECT_VALUE = "Connect";
         public const string EXACT_VALUE = "Exact Value";

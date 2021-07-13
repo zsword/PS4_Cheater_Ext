@@ -4,57 +4,59 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{0F0C70C1-1AAC-4716-8350-9F2503993848}</ProjectGuid>
+    <ProjectGuid>{A2E25459-1CEB-4D75-82F7-F85874279DA1}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ICheatPlugin</RootNamespace>
-    <AssemblyName>ICheatPlugin</AssemblyName>
+    <RootNamespace>libdebug</RootNamespace>
+    <AssemblyName>libdebug</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\PS4_Cheater\bin\Debug\</OutputPath>
+    <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <LangVersion>7.1</LangVersion>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\PS4_Cheater\</OutputPath>
+    <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>7.1</LangVersion>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CheatModule.cs" />
-    <Compile Include="CheatOperators.cs" />
-    <Compile Include="ICheatPlugin.cs" />
-    <Compile Include="MemoryHelper.cs" />
-    <Compile Include="PointerList.cs" />
-    <Compile Include="ProcessManager.cs" />
+    <Compile Include="Process.cs" />
+    <Compile Include="PS4DBG.cs" />
+    <Compile Include="PS4DBG.Console.cs">
+      <DependentUpon>PS4DBG.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PS4DBG.Kernel.cs">
+      <DependentUpon>PS4DBG.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PS4DBG.Debug.cs">
+      <DependentUpon>PS4DBG.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PS4DBG.Proc.cs">
+      <DependentUpon>PS4DBG.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Util.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\libdebug\libdebug.csproj">
-      <Project>{a2e25459-1ceb-4d75-82f7-f85874279da1}</Project>
-      <Name>libdebug</Name>
-    </ProjectReference>
+    <Compile Include="Registers.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

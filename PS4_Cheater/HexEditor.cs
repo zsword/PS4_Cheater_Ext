@@ -10,7 +10,7 @@ using Be.Windows.Forms;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Threading;
-using librpc;
+using libdebug;
 using static System.Windows.Forms.Menu;
 
 namespace PS4_Cheater
@@ -25,7 +25,7 @@ namespace PS4_Cheater
         private long line;
         private int column;
 
-        const int page_size = 8 * 1024 * 1024;
+        const int page_size = 128 * 1024;
 
         public HexEditor(MemoryHelper memoryHelper, int offset, MappedSection section)
         {

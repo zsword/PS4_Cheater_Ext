@@ -72,9 +72,6 @@
     <Reference Include="Be.Windows.Forms.HexBox">
       <HintPath>.\Be.Windows.Forms.HexBox.dll</HintPath>
     </Reference>
-    <Reference Include="librpc">
-      <HintPath>.\librpc.dll</HintPath>
-    </Reference>
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>.\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -131,6 +128,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="main.resx">
       <DependentUpon>main.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="NewAddress.resx">
       <DependentUpon>NewAddress.cs</DependentUpon>
@@ -174,6 +172,14 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\debug-watch\debug-watch.csproj">
+      <Project>{3e3bcefe-fc01-4385-becb-ebfadee3cb5b}</Project>
+      <Name>debug-watch</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\libdebug\libdebug.csproj">
+      <Project>{a2e25459-1ceb-4d75-82f7-f85874279da1}</Project>
+      <Name>libdebug</Name>
+    </ProjectReference>
     <ProjectReference Include="ICheatPlugin.csproj">
       <Project>{0f0c70c1-1aac-4716-8350-9f2503993848}</Project>
       <Name>ICheatPlugin</Name>
