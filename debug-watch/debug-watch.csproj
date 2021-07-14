@@ -1,0 +1,155 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <!--Project was exported from assembly: C:\Users\x\Downloads\PS4\debugwatch\dbgw\dbgw.exe-->
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{3E3BCEFE-FC01-4385-BECB-EBFADEE3CB5B}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AssemblyName>debug-watch</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
+    <FileAlignment>512</FileAlignment>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.0</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <PropertyGroup>
+    <RootNamespace>debugwatch</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Be.Windows.Forms.HexBox">
+      <HintPath>lib\Be.Windows.Forms.HexBox.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpDisasm">
+      <HintPath>lib\SharpDisasm.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AssemblerView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AssemblerView.Designer.cs">
+      <DependentUpon>AssemblerView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DebugWatchForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DebugWatchForm.Designer.cs">
+      <DependentUpon>DebugWatchForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Extensions.cs" />
+    <Compile Include="KeystoneNET\Arm64Error.cs" />
+    <Compile Include="KeystoneNET\ArmError.cs" />
+    <Compile Include="KeystoneNET\HexagonError.cs" />
+    <Compile Include="KeystoneNET\KeystoneArchitecture.cs" />
+    <Compile Include="KeystoneNET\KeystoneMode.cs" />
+    <Compile Include="KeystoneNET\KeystoneError.cs" />
+    <Compile Include="KeystoneNET\KeystoneOptionType.cs" />
+    <Compile Include="KeystoneNET\KeystoneOptionValue.cs" />
+    <Compile Include="KeystoneNET\MipsError.cs" />
+    <Compile Include="KeystoneNET\PpcError.cs" />
+    <Compile Include="KeystoneNET\SparcError.cs" />
+    <Compile Include="KeystoneNET\SystemzError.cs" />
+    <Compile Include="KeystoneNET\X86Error.cs" />
+    <Compile Include="KeystoneNET\Keystone.cs" />
+    <Compile Include="KeystoneNET\KeystoneEncoded.cs" />
+    <Compile Include="KeystoneNET\KeystoneImports.cs" />
+    <Compile Include="MemoryMapView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MemoryMapView.Designer.cs">
+      <DependentUpon>MemoryMapView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MemoryScanner.cs" />
+    <Compile Include="MemoryViewByteProvider.cs" />
+    <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="RichTextBoxExtensions.cs" />
+    <Compile Include="Settings.cs" />
+    <EmbeddedResource Include="AssemblerView.resx">
+      <DependentUpon>AssemblerView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DebugWatchForm.resx">
+      <DependentUpon>DebugWatchForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MemoryMapView.resx">
+      <DependentUpon>MemoryMapView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="_scratch\" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\libdebug\libdebug.csproj">
+      <Project>{a2e25459-1ceb-4d75-82f7-f85874279da1}</Project>
+      <Name>libdebug</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
